@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+{% block title %}Mooo - Supplement Guide{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+
+    <!-- Hero header -->
+    <header class="bg-gradient-to-br from-pink-700 via-pink-600 to-pink-500 text-white rounded-3xl p-8 mb-6 text-center shadow-lg">
+        <h1 class="text-3xl font-bold mb-3 leading-tight">Supplement Guide for Inducing Lactation Without Pregnancy</h1>
+        <p class="text-pink-50/90 text-sm leading-relaxed max-w-xl mx-auto">A research-backed reference covering herbal galactagogues and pharmaceutical options, with dosages, side effects, warnings, and sources.</p>
+    </header>
+
+    <!-- Back to supplements link -->
+    <div class="mb-6">
+        <a href="{% url 'supplements' %}" class="text-pink-600 hover:text-pink-800 text-sm">← Back to supplements tracker</a>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="bg-red-50 border-l-4 border-red-400 rounded-r-2xl p-5 mb-8 text-sm leading-relaxed text-red-900/90">
+        <strong class="block font-bold text-red-700 text-base mb-1">⚕️ Important: This Is Not Medical Advice</strong>
+        This guide is for informational purposes only. Inducing lactation should be done under the supervision of a healthcare provider or International Board Certified Lactation Consultant (IBCLC). Supplements and medications can interact with other drugs, affect blood sugar, and carry individual risks. Always consult a qualified professional before starting any protocol.
+    </div>
+
+    <!-- Intro -->
+    <div class="space-y-3 text-sm leading-relaxed text-pink-700/80 mb-10">
+        <p>Inducing lactation without a prior pregnancy is possible through a combination of mechanical breast stimulation (pumping every 2–3 hours), hormonal protocols, and galactagogues — substances believed or shown to promote milk production. This guide covers the most commonly used herbal supplements and pharmaceutical galactagogues, summarizing the best available evidence for each.</p>
+        <p>Most research on these substances has been conducted in postpartum people with existing supply concerns rather than in people inducing from scratch. Evidence quality varies widely, and results are individual. Mechanical stimulation remains the foundational and most important component of any lactation induction protocol.</p>
+    </div>
+
+    <!-- ============== HERBAL SECTION ============== -->
+    <h2 class="text-2xl font-bold text-pink-800 pb-2 mb-6 border-b-2 border-pink-200">Herbal Galactagogues</h2>
+
+    <!-- FENUGREEK -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Fenugreek</h3>
+            <span class="italic text-pink-500 text-sm">Trigonella foenum-graecum</span>
+            <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">The most widely used herbal galactagogue worldwide. Fenugreek may boost prolactin levels and milk volume in the short term, though a 2022 Cochrane review rates the overall evidence as low-certainty. It appears most useful as a short-term boost during early milk production rather than for sustained long-term supply increases.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    1–6 g/day of seed powder; commonly 3.5–6 g/day divided into 3 doses. Capsules often come in 580–610 mg; typical use is 3–4 capsules, 3 times/day. Doses under 3,500 mg/day are frequently reported as ineffective.
+                </div>
+                <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-green-700 mb-1">Available Forms</div>
+                    Capsules, loose seeds, tea bags, powder. No single form has been proven more effective than another. Seeds can be brewed as tea (~2 g per cup, 3×/day) or soaked overnight.
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Moderate — multiple RCTs exist, but sample sizes are small and outcome measures inconsistent. A 2018 meta-analysis of 122 mothers showed statistically significant increases in milk volume.
+                </div>
+                <div class="bg-yellow-50 rounded-xl p-3 text-sm text-yellow-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-yellow-700 mb-1">Onset</div>
+                    Most who respond notice changes within 24–72 hours. If no change after 1–2 weeks, it is unlikely to start working.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>Maple syrup odor in urine, sweat, and possibly milk (harmless, resolves on cessation)</li>
+                    <li>GI discomfort: bloating, gas, diarrhea, nausea</li>
+                    <li>Less common: dizziness, migraine worsening, frequent urination</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>Blood sugar:</strong> Can lower blood glucose — use with extreme caution if diabetic or taking hypoglycemics</li>
+                    <li><strong>Blood thinners:</strong> May interact with warfarin and increase bleeding risk</li>
+                    <li><strong>Thyroid:</strong> May lower thyroid hormone (T3) — avoid with hypothyroidism</li>
+                    <li><strong>Allergies:</strong> Cross-reacts with peanuts, chickpeas, and other legumes</li>
+                    <li><strong>Pregnancy:</strong> Can stimulate uterine contractions — do not use during pregnancy</li>
+                    <li><strong>Liver:</strong> Rare reports of liver toxicity</li>
+                    <li><strong>SSRIs:</strong> May interact with serotonin-increasing antidepressants</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/books/NBK501779/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    LactMed — Fenugreek (NIH/NCBI)
+                </a>
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12858439/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Scoping Review: Adverse Effects of Fenugreek in Humans (PMC 2025)
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- BLESSED THISTLE -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Blessed Thistle</h3>
+            <span class="italic text-pink-500 text-sm">Cnicus benedictus</span>
+            <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">A bitter herb traditionally used alongside fenugreek. Blessed thistle is frequently recommended as a complementary galactagogue; it is most commonly taken in combination with other herbs rather than alone. Controlled clinical evidence specifically for blessed thistle is very limited, but its long traditional use and lactation-consultant endorsement keep it in most herbal lactation blends.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    Capsules: 3–4 capsules (typically 390 mg each), 3 times/day. Tea: 1 tsp dried herb per cup, steeped 15 min, 2–3×/day. Tincture: 20–40 drops in water, 3×/day.
+                </div>
+                <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-green-700 mb-1">Available Forms</div>
+                    Capsules, dried herb for tea, liquid tincture. Very often included in combination lactation supplements and teas.
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Low — primarily supported by traditional use and anecdotal reports. Limited standalone research; most studies include it as part of multi-herb formulas.
+                </div>
+                <div class="bg-yellow-50 rounded-xl p-3 text-sm text-yellow-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-yellow-700 mb-1">Onset</div>
+                    Usually assessed in combination with other herbs over 1–2 weeks. Individual onset unclear.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>May increase stomach acid (it is a bitter digestive stimulant)</li>
+                    <li>Nausea or GI upset at higher doses</li>
+                    <li>Possible excess gas in parent or baby</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>Daisy family allergy:</strong> Related to the Asteraceae/Compositae family — avoid if allergic to ragweed, daisies, artichokes, or kiwi</li>
+                    <li><strong>Not the same as Milk Thistle:</strong> These are different plants with different uses; do not confuse them</li>
+                    <li><strong>GI conditions:</strong> May worsen acid reflux or stomach ulcers due to bitter properties</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://ibconline.ca/information-sheets/herbal-remedies-for-milk-supply/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Int'l Breastfeeding Centre — Herbal Remedies for Milk Supply
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- MORINGA -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Moringa</h3>
+            <span class="italic text-pink-500 text-sm">Moringa oleifera</span>
+            <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Known as the "miracle tree" or malunggay, moringa is widely used as a galactagogue in the Philippines and across Asia. A 2025 systematic review of eight RCTs found that moringa supplementation significantly increased breast milk volume (by up to 400 mL/day) and raised serum prolactin levels. It is nutrient-dense, containing vitamins, minerals, and essential amino acids. A separate 2026 meta-analysis found moderate-quality evidence of benefit at doses of 500 mg/day or higher.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    500 mg–1,500 mg/day of leaf powder or capsule form. Studies have used various preparations, commonly 250–500 mg capsules taken 2–3 times daily.
+                </div>
+                <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-green-700 mb-1">Available Forms</div>
+                    Leaf powder, capsules, tea, and as a food ingredient (the leaves are cooked into dishes in many cultures).
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Moderate — multiple RCTs available, including two systematic reviews. However, many studies are of limited quality, geographically concentrated, and short-duration (3–10 days).
+                </div>
+                <div class="bg-yellow-50 rounded-xl p-3 text-sm text-yellow-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-yellow-700 mb-1">Onset</div>
+                    Studies measured effects starting at day 3–5 postpartum. Individual onset for lactation induction is not well established.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>Very few side effects reported in studies (0.3% minor adverse events in one meta-analysis)</li>
+                    <li>Mild GI upset possible</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>Blood clotting:</strong> Some concern about pro-clotting effects — use with caution if on blood thinners or with clotting disorders</li>
+                    <li><strong>Long-term safety:</strong> No long-term safety data available; studies are short-duration only</li>
+                    <li><strong>Quality control:</strong> Products vary widely in concentration and purity; choose reputable brands</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12294722/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Systematic Review: Moringa oleifera as a Natural Galactagogue (PMC 2025)
+                </a>
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/books/NBK501899/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    LactMed — Moringa (NIH/NCBI)
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- GOAT'S RUE -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Goat's Rue</h3>
+            <span class="italic text-pink-500 text-sm">Galega officinalis</span>
+            <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Goat's rue is especially popular for lactation induction and relactation because it is traditionally believed to stimulate mammary tissue growth — making it potentially valuable for those who have not undergone the breast tissue changes of pregnancy. It is widely used in France and other European countries. However, no scientifically valid clinical trials currently support its use as a standalone galactagogue. One clinical study using a combination product containing goat's rue (with silymarin) showed significantly increased milk production.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    Capsules: 1 capsule (typically ~400 mg), 3–4 times/day. Tincture: 1–2 mL, 3×/day. Tea: 1 tsp dried herb per cup, 2×/day. Some sources suggest 1,000–3,000 mg total per day in divided doses.
+                </div>
+                <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-green-700 mb-1">Available Forms</div>
+                    Capsules, tincture, dried herb for tea. Also found in combination galactagogue blends.
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Low — long traditional use but no robust modern clinical trials. Evidence from older, poorly controlled studies and one combination-product RCT (Zecca 2016).
+                </div>
+                <div class="bg-yellow-50 rounded-xl p-3 text-sm text-yellow-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-yellow-700 mb-1">Onset</div>
+                    Effects typically expected to build over days to weeks. Not well characterized in research.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>Generally well tolerated</li>
+                    <li>Possible GI upset (diarrhea reported in combination with other galactagogues)</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>Blood sugar:</strong> Contains galegine (a guanidine derivative related to metformin) — may cause hypoglycemia; use with caution alongside diabetes medications</li>
+                    <li><strong>Platelet aggregation:</strong> May inhibit platelet aggregation — avoid within 2 weeks of surgery</li>
+                    <li><strong>Not "rue":</strong> Do NOT confuse with Rue herb (Ruta graveolens), which is toxic</li>
+                    <li><strong>Legume allergy:</strong> Related to peanuts and fenugreek; cross-reaction possible</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/books/NBK501817/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    LactMed — Goat's Rue (NIH/NCBI)
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- MILK THISTLE -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Milk Thistle (Silymarin)</h3>
+            <span class="italic text-pink-500 text-sm">Silybum marianum</span>
+            <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Milk thistle's active compound silymarin has been studied for lactation primarily in a combination product (Piùlatte Plus) that also contains phosphatidylserine and goat's rue. In a double-blind RCT of mothers of preterm infants, the treated group produced significantly more daily milk than the placebo group. Silymarin alone has not been well studied for lactation.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    As studied in combination: 5 g/day of a silymarin + phosphatidylserine + galega product. Standalone silymarin dosing for lactation is not well established; general supplements are 200–400 mg silymarin/day.
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Low-moderate — one well-designed RCT using a combination product showed benefit. Standalone use for lactation is not well supported by trials.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>Generally well tolerated</li>
+                    <li>Occasional GI upset (diarrhea, nausea, bloating)</li>
+                    <li>Headache (rare)</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>Blood sugar:</strong> May lower blood glucose</li>
+                    <li><strong>Allergies:</strong> Related to ragweed, daisies, and artichokes (Asteraceae family)</li>
+                    <li><strong>Not the same as Blessed Thistle:</strong> Different plant, different mechanism</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/books/NBK501771/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    LactMed — Milk Thistle (NIH/NCBI)
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- ============== PHARMACEUTICAL SECTION ============== -->
+    <h2 class="text-2xl font-bold text-pink-800 pb-2 mb-6 mt-10 border-b-2 border-pink-200">Pharmaceutical Galactagogues (Prescription)</h2>
+
+    <!-- DOMPERIDONE -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Domperidone</h3>
+            <span class="italic text-pink-500 text-sm">Brand: Motilium</span>
+            <span class="sm:ml-auto bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Rx Only</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Domperidone is a dopamine antagonist primarily used for GI disorders. It raises prolactin levels as a side effect, making it the most widely used pharmaceutical galactagogue worldwide. It is the preferred drug for induced lactation protocols, including the well-known Newman-Goldfarb protocol. It is not FDA-approved for lactation in the US, and the FDA has cautioned against its use for this purpose. It is available by prescription in Canada, the UK, and many other countries.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    Starting: 10 mg, 3 times/day (30 mg/day). May be increased to 20 mg 3–4×/day (60–80 mg/day) under medical supervision. The Int'l Breastfeeding Centre protocol starts at 30 mg 3×/day and may go up to 40 mg 4×/day (160 mg/day).
+                </div>
+                <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-green-700 mb-1">Protocol Context</div>
+                    Usually combined with hormonal priming (birth control pills for 16+ weeks, then stopped 6–8 weeks before target date) and regular breast pumping. Must be prescribed and monitored by a physician.
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Moderate-strong for increasing milk volume. Multiple RCTs in mothers of preterm infants confirm efficacy. Case reports support use in lactation induction including in transgender women.
+                </div>
+                <div class="bg-yellow-50 rounded-xl p-3 text-sm text-yellow-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-yellow-700 mb-1">Duration</div>
+                    Often continued for the entire duration of breastfeeding. Should be tapered gradually, not stopped suddenly.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>Headache (most common reported side effect)</li>
+                    <li>Dry mouth</li>
+                    <li>GI disturbances (diarrhea, abdominal cramps)</li>
+                    <li>Dizziness, mood swings</li>
+                    <li>Side effects are dose-related: higher doses correlate with increased incidence</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings — Read Carefully</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>Cardiac risk:</strong> FDA cites QT prolongation, torsades de pointes, and rare cases of sudden cardiac death. Cardiac risk is a primary concern, especially at higher doses</li>
+                    <li><strong>Drug interactions:</strong> Do NOT combine with drugs that prolong QT interval or inhibit CYP3A4 metabolism (azole antifungals, macrolide antibiotics, certain SSRIs)</li>
+                    <li><strong>Withdrawal:</strong> FDA has identified neuropsychiatric withdrawal effects (anxiety, insomnia, agitation, intrusive thoughts) upon sudden discontinuation — always taper gradually</li>
+                    <li><strong>US access:</strong> Not commercially available in the US; FDA advises against its use for lactation. Requires an expanded-access IND application or obtaining from international pharmacies</li>
+                    <li><strong>Requires medical supervision:</strong> Baseline ECG may be recommended, especially at higher doses or with cardiac risk factors</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/books/NBK501371/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    LactMed — Domperidone (NIH/NCBI)
+                </a>
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9903405/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Domperidone as galactagogue: Australian cross-sectional survey (PMC 2023)
+                </a>
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.fda.gov/drugs/information-drug-class/information-about-domperidone" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    FDA — Information About Domperidone
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- METOCLOPRAMIDE -->
+    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold text-pink-800">Metoclopramide</h3>
+            <span class="italic text-pink-500 text-sm">Brand: Reglan / Maxeran</span>
+            <span class="sm:ml-auto bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Rx Only</span>
+        </header>
+        <div class="px-6 py-5">
+            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">An older dopamine antagonist that crosses the blood-brain barrier (unlike domperidone), which gives it a notably higher rate of central nervous system side effects. It is available by prescription in the US but carries an FDA boxed warning for tardive dyskinesia. It is generally considered a second-line option behind domperidone where domperidone is available, due to its worse side effect profile. It is effective at raising prolactin and increasing milk volume in clinical studies.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                    10 mg, 3 times/day for 7–14 days. Some protocols use it for up to 4 weeks. Not generally recommended for long-term use due to side effect risk.
+                </div>
+                <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
+                    <div class="text-xs uppercase tracking-wider font-bold text-blue-700 mb-1">Evidence Strength</div>
+                    Moderate — several RCTs support efficacy for increasing milk supply. A systematic review and meta-analysis (Shen et al., 2021) confirmed efficacy of both domperidone and metoclopramide.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-gray-600 mb-2">Common Side Effects</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-gray-800">
+                    <li>Fatigue and drowsiness</li>
+                    <li>Headache (reported more frequently than with domperidone)</li>
+                    <li>Irritability, restlessness, anxiety</li>
+                    <li>Depression and mood changes</li>
+                    <li>Diarrhea, dry mouth, appetite changes</li>
+                    <li>Racing heart (reported ~7× more frequently than with domperidone)</li>
+                </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-wider font-bold text-red-700 mb-2">⚠️ Warnings — Read Carefully</div>
+                <ul class="list-disc list-outside ml-5 text-sm space-y-1 text-red-900/90">
+                    <li><strong>FDA Boxed Warning:</strong> Risk of tardive dyskinesia (involuntary repetitive movements), which may be irreversible. Risk increases with duration of use and total cumulative dose</li>
+                    <li><strong>CNS effects:</strong> Crosses the blood-brain barrier — significantly higher risk of depression, anxiety, and extrapyramidal symptoms than domperidone</li>
+                    <li><strong>Duration limit:</strong> FDA recommends against use for more than 12 weeks</li>
+                    <li><strong>Requires medical supervision:</strong> Must be prescribed and monitored by a physician</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-3">
+                <a class="inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs px-3 py-2 rounded-lg transition" href="https://www.ncbi.nlm.nih.gov/books/NBK501352/" target="_blank" rel="noopener">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    LactMed — Metoclopramide (NIH/NCBI)
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- ============== GENERAL TIPS ============== -->
+    <div class="bg-white border border-pink-100 rounded-3xl p-6 mt-10 shadow-sm">
+        <h3 class="text-xl font-bold text-pink-800 mb-4">General Guidance for Lactation Induction</h3>
+        <ul class="list-disc list-outside ml-5 text-sm space-y-3 text-pink-900/80 leading-relaxed">
+            <li><strong>Pumping is foundational.</strong> No supplement or medication will work well without consistent mechanical breast stimulation. Aim for every 2–3 hours (including at least once overnight) starting as early as possible — ideally 2+ months before your target date.</li>
+            <li><strong>Galactagogues are supplements to pumping, not substitutes.</strong> The LactMed database emphasizes that galactagogues should never replace evaluation and counseling on modifiable factors that affect milk production.</li>
+            <li><strong>Full supply is not guaranteed.</strong> Many people inducing lactation produce partial supply. Supplemental nursing systems can allow a breastfeeding relationship even without full production.</li>
+            <li><strong>Combination protocols are most effective.</strong> The most successful published protocols (such as the Newman-Goldfarb protocol) combine hormonal priming, domperidone, and pumping — sometimes with herbal supplements added on top.</li>
+            <li><strong>Work with a professional.</strong> An IBCLC (International Board Certified Lactation Consultant) experienced in induced lactation can tailor a protocol to your body and situation. A prescribing physician is necessary for any pharmaceutical galactagogue.</li>
+            <li><strong>Herbal supplements are not regulated like drugs.</strong> Quality, concentration, and purity vary between brands. Look for third-party tested products and buy from reputable sources.</li>
+            <li><strong>Watch for interactions.</strong> Several of these substances affect blood sugar, blood clotting, and thyroid function. Disclose all supplements to your healthcare provider, especially if you take any prescription medications.</li>
+        </ul>
+    </div>
+
+    <p class="text-center text-xs text-pink-500/70 mt-10 pt-6 border-t border-pink-200 leading-relaxed">
+        Guide compiled May 2026 from peer-reviewed sources including the NIH LactMed database, PubMed systematic reviews, and clinical lactation resources. Sources linked throughout. This is an informational reference — not medical advice. Always consult your healthcare provider.
+    </p>
+
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+  "name": "Mooo - Lactation Tracker",
+  "short_name": "Mooo",
+  "description": "Track pumping sessions, supplements, and progress on your induction journey.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3e7e9",
+  "theme_color": "#ec4899",
+  "icons": [
+    {
+      "src": "/static/images/cow-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

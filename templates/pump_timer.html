@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mooo - Pump Timer{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center">
+    <h1 class="text-4xl font-bold text-pink-700 mb-2">Pumping Session 🐮</h1>
+    <p class="text-pink-600 mb-6">Start whenever you're ready</p>
+
+    <!-- Today's Total -->
+    {% if today_sessions == 0 %}
+        <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-700 rounded-full px-5 py-2 mb-8 text-sm font-medium">
+            <span>🐄 Ready when you are</span>
+        </div>
+    {% else %}
+        <div class="inline-flex items-center gap-3 bg-pink-100 text-pink-800 rounded-full px-5 py-2 mb-8 text-sm font-medium">
+            <span>🐄 Today:</span>
+            <span><strong>{{ today_minutes }}</strong> min</span>
+            <span class="text-pink-400">·</span>
+            <span><strong>{{ today_sessions }}</strong> session{{ today_sessions|pluralize }}</span>
+        </div>
+    {% endif %}
+
+    <!-- Timer Display -->
+    <div id="timer-display"
+         class="text-8xl font-mono font-bold bg-white rounded-3xl py-16 shadow-inner border-8 border-pink-300 mb-10">
+        00:00:00
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-center items-center gap-4 mb-4">
+        <button id="startBtn"
+                aria-label="Start pumping session"
+                class="flex flex-col items-center gap-2 px-8 py-5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-3xl shadow-lg transition">
+            <img src="{% static 'images/cow-start.svg' %}" alt="" class="w-24 h-24">
+            <span class="text-xl tracking-wide">START</span>
+        </button>
+
+        <button id="stopBtn"
+                aria-label="Stop pumping session"
+                class="flex flex-col items-center gap-2 px-8 py-5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-3xl shadow-lg transition hidden">
+            <img src="{% static 'images/cow-stop.svg' %}" alt="" class="w-24 h-24">
+            <span class="text-xl tracking-wide">STOP</span>
+        </button>
+    </div>
+
+    <div class="flex justify-center mb-10">
+        <button id="resetBtn"
+                class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 text-xs font-semibold rounded-full shadow-sm transition">
+            RESET
+        </button>
+    </div>
+
+    <!-- Log Session Form -->
+    <form id="log-form" method="post" action="{% url 'pump_timer' %}"
+          class="hidden bg-white rounded-3xl p-8 shadow">
+        {% csrf_token %}
+        {{ form.duration_minutes }}
+
+        <h2 class="text-2xl font-semibold mb-6 text-pink-700">Log this session</h2>
+
+        <div class="text-left">
+            <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium mb-1">Notes</label>
+            {{ form.notes }}
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 text-left mt-4">
+            <div>
+                <label for="{{ form.left_ml.id_for_label }}" class="block text-sm font-medium mb-1">Left Breast (ml)</label>
+                {{ form.left_ml }}
+            </div>
+            <div>
+                <label for="{{ form.right_ml.id_for_label }}" class="block text-sm font-medium mb-1">Right Breast (ml)</label>
+                {{ form.right_ml }}
+            </div>
+        </div>
+
+        <div class="flex gap-3 mt-8">
+            <button type="submit" id="saveSessionBtn"
+                    class="flex-1 py-5 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xl rounded-3xl">
+                💾 Save Session
+            </button>
+            <button type="button" id="cancelBtn"
+                    class="flex-1 py-5 bg-gray-300 hover:bg-gray-400 font-bold text-xl rounded-3xl">
+                Cancel
+            </button>
+        </div>
+    </form>
+  <audio id="mooSound" src="{% static 'sounds/mooo.mp3' %}"></audio>
+</div>
+
+<script src="{% static 'js/timer.js' %}"></script>
+{% endblock %}

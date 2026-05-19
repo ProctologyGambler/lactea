@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mooo{% endblock %}</title>
+    
+    {% load static %}
+    <script src="{% static 'js/tailwind.js' %}"></script>
+
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <link rel="icon" href="{% static 'images/cow-icon.svg' %}" type="image/svg+xml">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f3e7e9, #e6f0fa);
+        }
+        .cow-spot {
+            background-image: 
+                radial-gradient(circle at 25% 25%, #fff 2%, transparent 2%),
+                radial-gradient(circle at 75% 75%, #fff 2%, transparent 2%);
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Top Navigation -->
+    <nav class="bg-pink-200 border-b-4 border-pink-400 shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🐮</span>
+                <h1 class="text-2xl font-bold text-pink-700">Mooo</h1>
+            </div>
+            
+            <div class="flex gap-1 text-sm">
+                <a href="{% url 'home' %}" 
+                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors {% if request.path == '/' %}bg-pink-100 font-medium{% endif %}">
+                    🏠 Home
+                </a>
+                <a href="{% url 'pump_timer' %}" 
+                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
+                    ⏰ Pump
+                </a>
+                <a href="{% url 'supplements' %}"
+                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
+                    💊 Supplements
+                </a>
+                <a href="{% url 'daily_log' %}"
+                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
+                    📝 Daily
+                </a>
+                <a href="{% url 'progress' %}" 
+                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
+                    📈 Progress
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pink-100 py-6 text-center text-pink-600 text-sm border-t border-pink-200">
+        <p>Made with ❤️ for your lactation journey • All data stays private</p>
+        <div class="mt-1 flex justify-center gap-4">
+            <a href="{% url 'export_csv' %}" class="underline hover:text-pink-700">Export all data as CSV</a>
+            <a href="{% url 'privacy' %}" class="underline hover:text-pink-700">Privacy</a>
+        </div>
+    </footer>
+
+    <script>
+        // Register the service worker once the page has loaded.
+        // The browser caches it; updates happen automatically the next time the SW file changes.
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .catch((err) => console.error('Service worker registration failed:', err));
+            });
+        }
+    </script>
+
+</body>
+</html>

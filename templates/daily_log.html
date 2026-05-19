@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %}Mooo - Daily Log{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-4xl font-bold text-pink-700 mb-2 text-center">Daily Log 📝</h1>
+    <p class="text-pink-600 mb-8 text-center">A quick check-in on how today's going</p>
+
+    <!-- Today's form -->
+    <form method="post" class="bg-white rounded-3xl p-6 shadow mb-10 space-y-6">
+        {% csrf_token %}
+
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 class="text-lg font-semibold text-pink-700">
+                {% if has_today_log %}Update today's log{% else %}Log today{% endif %}
+            </h2>
+            <span class="text-sm text-pink-500">{{ today|date:"l, M j" }}</span>
+        </div>
+
+        <!-- Mood -->
+        <div>
+            <label class="block text-sm font-medium mb-2">How's your mood? <span class="text-pink-400 font-normal">(pick any combination, or add your own)</span></label>
+            <div class="flex flex-wrap gap-2">
+                {% for value, label in mood_presets_display %}
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="mood_presets" value="{{ value }}" class="peer sr-only"
+                               {% if value in current_mood_presets %}checked{% endif %}>
+                        <span class="inline-block px-4 py-2 rounded-full bg-pink-50 text-pink-700 border border-pink-200 transition
+                                     peer-checked:bg-pink-600 peer-checked:text-white peer-checked:border-pink-600
+                                     peer-focus:ring-2 peer-focus:ring-pink-300">
+                            {{ label }}
+                        </span>
+                    </label>
+                {% endfor %}
+            </div>
+            <input type="text" name="mood_custom" value="{{ current_mood_custom }}"
+                   class="w-full mt-3 border border-pink-200 rounded-2xl px-4 py-2 text-sm"
+                   placeholder="Or add your own — comma-separated (e.g. anxious, hopeful)">
+        </div>
+
+        <!-- Breast feeling -->
+        <div>
+            <label class="block text-sm font-medium mb-2">How do your breasts feel? <span class="text-pink-400 font-normal">(pick any combination, or add your own)</span></label>
+            <div class="flex flex-wrap gap-2">
+                {% for value, label in breast_presets_display %}
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="breast_presets" value="{{ value }}" class="peer sr-only"
+                               {% if value in current_breast_presets %}checked{% endif %}>
+                        <span class="inline-block px-4 py-2 rounded-full bg-pink-50 text-pink-700 border border-pink-200 transition
+                                     peer-checked:bg-pink-600 peer-checked:text-white peer-checked:border-pink-600
+                                     peer-focus:ring-2 peer-focus:ring-pink-300">
+                            {{ label }}
+                        </span>
+                    </label>
+                {% endfor %}
+            </div>
+            <input type="text" name="breast_custom" value="{{ current_breast_custom }}"
+                   class="w-full mt-3 border border-pink-200 rounded-2xl px-4 py-2 text-sm"
+                   placeholder="Or add your own — comma-separated (e.g. tingly, achy)">
+        </div>
+
+        <!-- Notes -->
+        <div>
+            <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium mb-2">Notes</label>
+            {{ form.notes }}
+        </div>
+
+        <button type="submit"
+                class="w-full py-4 bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg rounded-3xl transition">
+            {% if has_today_log %}💾 Update{% else %}💾 Save today's log{% endif %}
+        </button>
+    </form>
+
+    <!-- Past entries -->
+    <section>
+        <h2 class="text-lg font-semibold text-pink-700 mb-3">Past entries</h2>
+        {% if recent_logs %}
+            <div class="space-y-3">
+                {% for log in recent_logs %}
+                    <article class="bg-white rounded-3xl p-5 shadow-sm">
+                        <div class="text-pink-800 font-semibold mb-3">{{ log.date|date:"l, M j, Y" }}</div>
+
+                        {% if log.mood_list %}
+                            <div class="flex flex-wrap items-center gap-1 mb-1.5">
+                                <span class="text-xs text-pink-500 mr-1 uppercase tracking-wide">Mood</span>
+                                {% for word in log.mood_list %}
+                                    <span class="text-xs bg-pink-100 text-pink-700 rounded-full px-2.5 py-0.5">{{ word|title }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if log.breast_feeling_list %}
+                            <div class="flex flex-wrap items-center gap-1 mb-2">
+                                <span class="text-xs text-pink-500 mr-1 uppercase tracking-wide">Breasts</span>
+                                {% for word in log.breast_feeling_list %}
+                                    <span class="text-xs bg-pink-100 text-pink-700 rounded-full px-2.5 py-0.5">{{ word|title }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if log.notes %}
+                            <p class="text-sm text-pink-700/80 italic mt-2">{{ log.notes }}</p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-sm text-pink-500 italic">No past entries yet — your daily log starts today.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
