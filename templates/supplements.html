@@ -1,55 +1,51 @@
 {% extends 'base.html' %}
-{% block title %}Mooo - Supplements{% endblock %}
+{% block title %}{{ c.brand_name }} - {{ c.supps_title }}{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
-    <h1 class="text-4xl font-bold text-pink-700 mb-2 text-center">Supplements 💊</h1>
-    <p class="text-pink-600 mb-4 text-center">Track what you're taking and your daily compliance</p>
+    <h1 class="text-4xl font-bold skin-heading mb-2 text-center">{{ c.supps_title }}</h1>
+    <p class="skin-text-muted mb-4 text-center">{{ c.supps_subtitle }}</p>
 
     <div class="flex justify-center mb-8">
-        <a href="{% url 'supplement_guide' %}"
-           class="inline-flex items-center gap-2 bg-pink-100 hover:bg-pink-200 text-pink-700 px-5 py-2 rounded-full text-sm font-medium transition">
-            📖 Read the supplement guide
+        <a href="{% url 'supplement_guide' %}" class="skin-btn-soft inline-flex items-center gap-2 px-5 py-2 text-sm font-medium transition">
+            {{ c.supps_guide_link_icon }} {{ c.supps_guide_link }}
         </a>
     </div>
 
     <!-- Today's checklist -->
-    <section class="mb-10">
-        <h2 class="text-lg font-semibold text-pink-700 mb-3">Today's checklist</h2>
+    <section class="mb-10" id="supplement-list">
+        <h2 class="text-lg font-semibold skin-heading mb-3">{{ c.supps_today_checklist }}</h2>
 
         {% if supplement_list %}
             <div class="space-y-3">
                 {% for entry in supplement_list %}
-                    <div class="bg-white rounded-3xl p-5 shadow flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div class="skin-card p-5 flex flex-col sm:flex-row sm:items-center gap-3">
                         <div class="flex-1">
-                            <h3 class="font-semibold text-pink-800 text-lg">{{ entry.obj.name }}</h3>
-                            <p class="text-sm text-pink-600">
+                            <h3 class="font-semibold skin-text text-lg">{{ entry.obj.name }}</h3>
+                            <p class="text-sm skin-text-muted">
                                 {{ entry.obj.dosage }}{% if entry.obj.frequency %} · {{ entry.obj.frequency }}{% endif %}
                             </p>
                             {% if entry.obj.notes %}
-                                <p class="text-xs text-pink-500 italic mt-1">{{ entry.obj.notes }}</p>
+                                <p class="text-xs skin-text-muted italic mt-1">{{ entry.obj.notes }}</p>
                             {% endif %}
                         </div>
 
-                        <form method="post" action="{% url 'supplement_toggle' entry.obj.pk %}">
+                        <form method="post" action="{% url 'supplement_toggle' entry.obj.pk %}"
+                              onsubmit="if (window.playSkinSound) playSkinSound('tap');">
                             {% csrf_token %}
                             <button type="submit"
                                     class="px-5 py-3 rounded-full font-semibold text-sm transition shadow-sm
-                                           {% if entry.taken_today %}
-                                               bg-green-500 hover:bg-green-600 text-white
-                                           {% else %}
-                                               bg-gray-100 hover:bg-pink-100 text-pink-700 border border-pink-200
-                                           {% endif %}">
-                                {% if entry.taken_today %}✓ Taken today{% else %}Mark taken today{% endif %}
+                                           {% if entry.taken_today %}skin-taken{% else %}skin-not-taken{% endif %}">
+                                {% if entry.taken_today %}✓ {{ c.supps_taken_today }}{% else %}{{ c.supps_mark_taken }}{% endif %}
                             </button>
                         </form>
 
                         <form method="post" action="{% url 'supplement_delete' entry.obj.pk %}"
-                              onsubmit="return confirm('Remove {{ entry.obj.name }} from your regimen?');">
+                              onsubmit="return confirm('{{ c.supps_delete_confirm|escapejs }}');">
                             {% csrf_token %}
                             <button type="submit"
                                     aria-label="Delete {{ entry.obj.name }}"
-                                    class="text-pink-400 hover:text-red-600 text-sm px-2 py-1 transition">
+                                    class="skin-text-muted hover:text-red-600 text-sm px-2 py-1 transition">
                                 ✕
                             </button>
                         </form>
@@ -57,24 +53,22 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="bg-white rounded-3xl p-6 shadow text-center text-pink-500">
-                <p>No supplements tracked yet.</p>
-                <p class="text-sm mt-1">Add one below to start tracking 🐮</p>
+            <div class="skin-card p-6 text-center skin-text-muted">
+                <p>{{ c.supps_no_supps }}</p>
+                <p class="text-sm mt-1">{{ c.supps_no_supps_hint }}</p>
             </div>
         {% endif %}
     </section>
 
     <!-- Quick add -->
     <section class="mb-6">
-        <h2 class="text-lg font-semibold text-pink-700 mb-3">Quick add</h2>
-        <p class="text-xs text-pink-500 mb-3">
-            These fill the name only — you'll add your own dosage and frequency.
-        </p>
+        <h2 class="text-lg font-semibold skin-heading mb-3">{{ c.supps_quick_add }}</h2>
+        <p class="text-xs skin-text-muted mb-3">{{ c.supps_quick_add_hint }}</p>
         <div class="flex flex-wrap gap-2">
             {% for name in quick_add_names %}
                 <button type="button"
-                        onclick="prefillName('{{ name|escapejs }}')"
-                        class="px-4 py-2 rounded-full bg-pink-100 text-pink-700 hover:bg-pink-200 text-sm transition">
+                        onclick="prefillName('{{ name|escapejs }}'); if (window.playSkinSound) playSkinSound('tap');"
+                        class="skin-btn-soft px-4 py-2 text-sm transition">
                     {{ name }}
                 </button>
             {% endfor %}
@@ -83,32 +77,43 @@
 
     <!-- Add form -->
     <section>
-        <h2 class="text-lg font-semibold text-pink-700 mb-3">Add a supplement</h2>
-        <form method="post" action="{% url 'supplements' %}" class="bg-white rounded-3xl p-6 shadow space-y-4">
+        <h2 class="text-lg font-semibold skin-heading mb-3">{{ c.supps_add_title }}</h2>
+        <form method="post" action="{% url 'supplements' %}" class="skin-card p-6 space-y-4"
+              onsubmit="if (window.playSkinSound) playSkinSound('save');">
             {% csrf_token %}
 
+            {% if form.errors %}
+                <div class="skin-error-box">
+                    {{ c.supps_form_errors_intro }}
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
             <div>
-                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium mb-1">Name</label>
+                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.supps_form_name_label }}</label>
                 {{ form.name }}
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label for="{{ form.dosage.id_for_label }}" class="block text-sm font-medium mb-1">Dosage</label>
+                    <label for="{{ form.dosage.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.supps_form_dosage_label }}</label>
                     {{ form.dosage }}
                 </div>
                 <div>
-                    <label for="{{ form.frequency.id_for_label }}" class="block text-sm font-medium mb-1">Frequency</label>
+                    <label for="{{ form.frequency.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.supps_form_frequency_label }}</label>
                     {{ form.frequency }}
                 </div>
             </div>
             <div>
-                <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium mb-1">Notes</label>
+                <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.supps_form_notes_label }}</label>
                 {{ form.notes }}
             </div>
 
-            <button type="submit"
-                    class="w-full py-4 bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg rounded-3xl transition">
-                ➕ Add to my regimen
+            <button type="submit" class="w-full py-4 skin-btn-primary text-lg">
+                {{ c.supps_add_button }}
             </button>
         </form>
     </section>

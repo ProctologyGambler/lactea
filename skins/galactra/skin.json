@@ -1,0 +1,50 @@
+{
+  "name": "galactra",
+  "display_name": "Galactra®",
+  "description": "Pharmaceutical-grade interface for induced lactation tracking. Evidence-forward, protocol-coded, prescriber-aware.",
+  "palette": {
+    "bg-grad-a": "#f8fafc",
+    "bg-grad-b": "#eef2f7",
+    "surface-1": "#ffffff",
+    "surface-1-border": "#cbd5e1",
+    "surface-1-hover": "#f1f5f9",
+    "accent": "#1e40af",
+    "accent-hover": "#1e3a8a",
+    "accent-soft": "#eef2f7",
+    "text-warm": "#0f172a",
+    "text-on-surface": "#0f172a",
+    "input-border": "#cbd5e1",
+    "input-focus": "#1e40af",
+    "tag-bg": "#f1f5f9",
+    "tag-text": "#1e3a8a",
+    "tag-active-bg": "#1e40af",
+    "tag-active-text": "#ffffff",
+    "card-bg": "#ffffff",
+    "chart-bar": "rgba(30, 64, 175, 0.7)",
+    "chart-bar-border": "rgba(30, 64, 175, 1)",
+    "chart-tick": "#1e40af",
+    "chart-grid": "rgba(30, 64, 175, 0.08)"
+  },
+  "fonts": {
+    "display": "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+    "body": "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif"
+  },
+  "features": {
+    "show_evidence_grades": true,
+    "show_citations_inline": true,
+    "show_streaks": false,
+    "show_encouragement": false,
+    "supplement_guide_prominence": "primary",
+    "daily_log_prominence": "primary"
+  },
+  "sounds": {
+    "tap": "chime.mp3",
+    "save": "chime.mp3",
+    "milestone": "chime.mp3",
+    "session_end": "chime.mp3"
+  },
+  "pwa": {
+    "background_color": "#f8fafc",
+    "theme_color": "#1e40af"
+  }
+}

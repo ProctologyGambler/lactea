@@ -2,56 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mooo{% endblock %}</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{% block title %}{{ c.brand_name }}{% endblock %}</title>
+
     {% load static %}
     <script src="{% static 'js/tailwind.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/skins.css' %}">
 
     <link rel="manifest" href="{% static 'manifest.json' %}">
-    <link rel="icon" href="{% static 'images/cow-icon.svg' %}" type="image/svg+xml">
-    
-    <style>
-        body {
-            background: linear-gradient(135deg, #f3e7e9, #e6f0fa);
-        }
-        .cow-spot {
-            background-image: 
-                radial-gradient(circle at 25% 25%, #fff 2%, transparent 2%),
-                radial-gradient(circle at 75% 75%, #fff 2%, transparent 2%);
-        }
-    </style>
+    <meta name="theme-color" content="{{ skin_config.pwa.theme_color|default:'#ec4899' }}">
+    {% include "skins/"|add:request.skin|add:"/_brand_head.html" %}
 </head>
-<body class="font-sans">
+<body data-skin="{{ request.skin }}" class="font-sans">
 
     <!-- Top Navigation -->
-    <nav class="bg-pink-200 border-b-4 border-pink-400 shadow-md">
+    <nav class="app-nav shadow-md">
         <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <span class="text-3xl">🐮</span>
-                <h1 class="text-2xl font-bold text-pink-700">Mooo</h1>
+                {% include "skins/"|add:request.skin|add:"/_brand_nav.html" %}
             </div>
-            
+
             <div class="flex gap-1 text-sm">
-                <a href="{% url 'home' %}" 
-                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors {% if request.path == '/' %}bg-pink-100 font-medium{% endif %}">
-                    🏠 Home
+                <a href="{% url 'home' %}"
+                   class="px-4 py-2 rounded-xl transition-colors {% if request.path == '/' %}is-active{% endif %}">
+                    {{ c.nav_home }}
                 </a>
-                <a href="{% url 'pump_timer' %}" 
-                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
-                    ⏰ Pump
+                <a href="{% url 'pump_timer' %}"
+                   class="px-4 py-2 rounded-xl transition-colors {% if request.path == '/pump/' %}is-active{% endif %}">
+                    {{ c.nav_pump }}
                 </a>
                 <a href="{% url 'supplements' %}"
-                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
-                    💊 Supplements
+                   class="px-4 py-2 rounded-xl transition-colors {% if '/supplements' in request.path %}is-active{% endif %}">
+                    {{ c.nav_supplements }}
                 </a>
                 <a href="{% url 'daily_log' %}"
-                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
-                    📝 Daily
+                   class="px-4 py-2 rounded-xl transition-colors {% if request.path == '/daily-log/' %}is-active{% endif %}">
+                    {{ c.nav_daily }}
                 </a>
-                <a href="{% url 'progress' %}" 
-                   class="px-4 py-2 rounded-xl hover:bg-pink-100 transition-colors">
-                    📈 Progress
+                <a href="{% url 'progress' %}"
+                   class="px-4 py-2 rounded-xl transition-colors {% if request.path == '/progress/' %}is-active{% endif %}">
+                    {{ c.nav_progress }}
                 </a>
             </div>
         </div>
@@ -64,17 +54,51 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-pink-100 py-6 text-center text-pink-600 text-sm border-t border-pink-200">
-        <p>Made with ❤️ for your lactation journey • All data stays private</p>
+    <footer class="app-footer py-6 text-center text-sm">
+        <p>{{ c.footer_message }}</p>
         <div class="mt-1 flex justify-center gap-4">
-            <a href="{% url 'export_csv' %}" class="underline hover:text-pink-700">Export all data as CSV</a>
-            <a href="{% url 'privacy' %}" class="underline hover:text-pink-700">Privacy</a>
+            <a href="{% url 'export_csv' %}">{{ c.footer_export }}</a>
+            <a href="{% url 'privacy' %}">{{ c.footer_privacy }}</a>
+            {% if request.user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="skin-link">Sign out ({{ request.user.username }})</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="mt-2 flex justify-center items-center gap-2">
+            {% if not request.skin_locked %}
+                <span>{{ c.footer_theme_label }}</span>
+                {% for skin in available_skins %}
+                    {% if request.skin == skin.name %}
+                        <span class="app-theme-toggle-active">{{ skin.display_name }}</span>
+                    {% else %}
+                        <a href="{% url 'set_skin' skin.name %}?next={{ request.path }}">{{ skin.display_name }}</a>
+                    {% endif %}
+                    {% if not forloop.last %}<span>·</span>{% endif %}
+                {% endfor %}
+            {% endif %}
+            <button type="button" id="sound-toggle" onclick="toggleSkinMute()"
+                    class="skin-mute-btn{% if not request.skin_locked %} ml-3{% endif %}" aria-pressed="false" aria-label="Sound on — tap to mute">🔇</button>
         </div>
     </footer>
 
+    <!-- First-save sound prompt — hidden by default; shown by sounds.js if URL has ?just_pumped=1 and the user hasn't resolved it -->
+    <div id="first-save-sound-prompt" class="hidden first-save-prompt" role="dialog" aria-labelledby="first-save-prompt-title">
+        <div class="skin-card p-5 max-w-sm mx-auto text-center">
+            <p id="first-save-prompt-title" class="skin-heading font-semibold mb-1">Want sound feedback?</p>
+            <p class="skin-text-muted text-sm mb-4">A small chime confirms saves and milestones. You can mute anytime from the footer.</p>
+            <div class="flex gap-2 justify-center">
+                <button type="button" onclick="enableSoundFromPrompt()" class="skin-btn-primary px-4 py-2 text-sm">Enable sound</button>
+                <button type="button" onclick="dismissSoundPrompt()" class="skin-btn-soft px-4 py-2 text-sm">Not now</button>
+            </div>
+        </div>
+    </div>
+
+    {{ skin_sound_urls|json_script:"skin-sounds" }}
+    <script src="{% static 'js/sounds.js' %}"></script>
+
     <script>
-        // Register the service worker once the page has loaded.
-        // The browser caches it; updates happen automatically the next time the SW file changes.
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')

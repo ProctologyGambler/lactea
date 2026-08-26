@@ -1,0 +1,49 @@
+{
+  "name": "cow",
+  "display_name": "Lactea 🐮",
+  "description": "Playful and encouraging. For anyone who wants lactation tracking with personality.",
+  "palette": {
+    "bg-grad-a": "#f3e7e9",
+    "bg-grad-b": "#e6f0fa",
+    "surface-1": "#fbcfe8",
+    "surface-1-border": "#f9a8d4",
+    "surface-1-hover": "#fce7f3",
+    "accent": "#be185d",
+    "accent-soft": "#fce7f3",
+    "text-warm": "#831843",
+    "text-on-surface": "#831843",
+    "input-border": "#f9a8d4",
+    "input-focus": "#ec4899",
+    "tag-bg": "#fce7f3",
+    "tag-text": "#be185d",
+    "tag-active-bg": "#db2777",
+    "tag-active-text": "#ffffff",
+    "card-bg": "#ffffff",
+    "chart-bar": "rgba(236, 72, 153, 0.7)",
+    "chart-bar-border": "rgba(236, 72, 153, 1)",
+    "chart-tick": "#be185d",
+    "chart-grid": "rgba(236, 72, 153, 0.08)"
+  },
+  "fonts": {
+    "display": "'Nunito', sans-serif",
+    "body": "system-ui, sans-serif"
+  },
+  "features": {
+    "show_evidence_grades": false,
+    "show_citations_inline": false,
+    "show_streaks": true,
+    "show_encouragement": true,
+    "supplement_guide_prominence": "secondary",
+    "daily_log_prominence": "primary"
+  },
+  "sounds": {
+    "tap": "lactea.mp3",
+    "save": "lactea.mp3",
+    "milestone": "lactea.mp3",
+    "session_end": "lactea.mp3"
+  },
+  "pwa": {
+    "background_color": "#f3e7e9",
+    "theme_color": "#ec4899"
+  }
+}

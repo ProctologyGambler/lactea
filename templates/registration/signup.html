@@ -1,0 +1,61 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Sign up — {{ c.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="skin-card p-6 space-y-5">
+    <h1 class="skin-heading text-2xl font-semibold">Create your account</h1>
+
+    {% if form.non_field_errors %}
+        <div class="skin-error-box">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label for="{{ form.username.id_for_label }}" class="block text-sm skin-text-muted mb-1">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}<div class="skin-error-box mt-1">{{ form.username.errors }}</div>{% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.email.id_for_label }}" class="block text-sm skin-text-muted mb-1">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}<div class="skin-error-box mt-1">{{ form.email.errors }}</div>{% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.password1.id_for_label }}" class="block text-sm skin-text-muted mb-1">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.help_text %}
+                <p class="text-xs skin-text-muted mt-1">{{ form.password1.help_text|safe }}</p>
+            {% endif %}
+            {% if form.password1.errors %}<div class="skin-error-box mt-1">{{ form.password1.errors }}</div>{% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.password2.id_for_label }}" class="block text-sm skin-text-muted mb-1">Confirm password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}<div class="skin-error-box mt-1">{{ form.password2.errors }}</div>{% endif %}
+        </div>
+
+        <div class="flex items-start gap-2 pt-2">
+            {{ form.data_pooling_consent }}
+            <label for="{{ form.data_pooling_consent.id_for_label }}" class="text-sm skin-text-muted">
+                {{ form.data_pooling_consent.label }}
+            </label>
+        </div>
+
+        <button type="submit" class="skin-btn-primary w-full px-4 py-3 rounded-2xl font-medium">
+            Create account
+        </button>
+    </form>
+
+    <div class="text-sm text-center skin-text-muted">
+        Already have an account? <a href="{% url 'login' %}" class="skin-link">Sign in</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,54 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Mooo - Home{% endblock %}
+{% block title %}{{ c.brand_name }} - Home{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
 
     <!-- Welcome -->
     <header class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-pink-700 mb-2">Welcome to Mooo 🐮</h1>
-        <p class="text-pink-600">Your gentle induced lactation companion</p>
+        <h1 class="text-4xl font-bold skin-heading mb-2">{{ c.home_welcome }}</h1>
+        <p class="skin-text-muted">{{ c.brand_tagline }}</p>
     </header>
 
     <!-- Primary CTA -->
     <a href="{% url 'pump_timer' %}"
        class="block bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-3xl p-8 mb-6 shadow-lg transition text-center">
-        <div class="text-5xl mb-2">⏰</div>
-        <div class="text-2xl font-bold">Start a session</div>
-        <div class="text-sm opacity-90 mt-1">Whenever you're ready</div>
+        <div class="text-5xl mb-2">{{ c.home_start_session_icon }}</div>
+        <div class="text-2xl font-bold">{{ c.home_start_session }}</div>
+        <div class="text-sm opacity-90 mt-1">{{ c.home_start_session_sub }}</div>
     </a>
 
     <!-- Today summary -->
-    <section class="bg-white rounded-3xl p-6 shadow mb-6">
-        <h2 class="text-lg font-semibold text-pink-700 mb-4">Today</h2>
+    <section class="skin-card p-6 mb-6">
+        <h2 class="text-lg font-semibold skin-heading mb-4">{{ c.home_today }}</h2>
         <div class="grid grid-cols-3 gap-3 text-center">
             <div>
-                <div class="text-3xl font-bold text-pink-700">{{ today_minutes }}</div>
-                <div class="text-xs text-pink-500 uppercase tracking-wide mt-1">Min pumped</div>
+                <div class="text-3xl font-bold skin-stat-value">{{ today_minutes }}</div>
+                <div class="text-xs skin-stat-label uppercase tracking-wide mt-1">{{ c.home_min_pumped }}</div>
             </div>
             <div>
-                <div class="text-3xl font-bold text-pink-700">{{ today_sessions }}</div>
-                <div class="text-xs text-pink-500 uppercase tracking-wide mt-1">Session{{ today_sessions|pluralize }}</div>
+                <div class="text-3xl font-bold skin-stat-value">{{ today_sessions }}</div>
+                <div class="text-xs skin-stat-label uppercase tracking-wide mt-1">{{ c.home_sessions }}</div>
             </div>
             <div>
-                <div class="text-3xl font-bold text-pink-700">
-                    {{ today_supps_taken }}{% if total_supps %}<span class="text-lg text-pink-400">/{{ total_supps }}</span>{% endif %}
+                <div class="text-3xl font-bold skin-stat-value">
+                    {{ today_supps_taken }}{% if total_supps %}<span class="text-lg skin-text-muted">/{{ total_supps }}</span>{% endif %}
                 </div>
-                <div class="text-xs text-pink-500 uppercase tracking-wide mt-1">Supplements</div>
+                <div class="text-xs skin-stat-label uppercase tracking-wide mt-1">{{ c.home_supplements }}</div>
             </div>
         </div>
     </section>
 
     <!-- Recent sessions -->
     {% if recent_sessions %}
-    <section class="bg-white rounded-3xl p-6 shadow mb-6">
-        <h2 class="text-lg font-semibold text-pink-700 mb-4">Recent sessions</h2>
-        <ul class="divide-y divide-pink-50">
+    <section class="skin-card p-6 mb-6">
+        <h2 class="text-lg font-semibold skin-heading mb-4">{{ c.home_recent_sessions }}</h2>
+        <ul class="divide-y skin-divider">
             {% for session in recent_sessions %}
                 <li class="flex items-center justify-between text-sm py-2">
-                    <span class="text-pink-800">{{ session.date|date:"M j, Y · g:i A" }}</span>
-                    <span class="text-pink-600 font-medium">
+                    <span class="skin-text">{{ session.date|date:"M j, Y · g:i A" }}</span>
+                    <span class="skin-heading font-medium">
                         {{ session.duration_minutes }} min{% if session.total_ml %} · {{ session.total_ml }} ml{% endif %}
                     </span>
                 </li>
@@ -58,9 +58,9 @@
     {% endif %}
 
     <!-- Lifetime fun fact -->
-    <p class="text-center text-sm text-pink-500/80 mt-6">
-        🐮 You've pumped a lifetime total of
-        <strong class="text-pink-700">{{ lifetime_minutes }}</strong>
+    <p class="text-center text-sm skin-text-muted mt-6">
+        {{ c.brand_emoji }} {{ c.home_lifetime_prefix }}
+        <strong class="skin-heading">{{ lifetime_minutes }}</strong>
         minute{{ lifetime_minutes|pluralize }}
     </p>
 

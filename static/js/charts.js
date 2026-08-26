@@ -3,6 +3,13 @@ if (chartEl) {
     const labels = JSON.parse(document.getElementById('chart-labels').textContent);
     const values = JSON.parse(document.getElementById('chart-values').textContent);
 
+    // Read skin palette from CSS variables
+    const style = getComputedStyle(document.body);
+    const barColor = style.getPropertyValue('--chart-bar').trim() || 'rgba(236, 72, 153, 0.7)';
+    const barBorder = style.getPropertyValue('--chart-bar-border').trim() || 'rgba(236, 72, 153, 1)';
+    const tickColor = style.getPropertyValue('--chart-tick').trim() || '#be185d';
+    const gridColor = style.getPropertyValue('--chart-grid').trim() || 'rgba(236, 72, 153, 0.08)';
+
     new Chart(chartEl, {
         type: 'bar',
         data: {
@@ -10,8 +17,8 @@ if (chartEl) {
             datasets: [{
                 label: 'Minutes pumped',
                 data: values,
-                backgroundColor: 'rgba(236, 72, 153, 0.7)',
-                borderColor: 'rgba(236, 72, 153, 1)',
+                backgroundColor: barColor,
+                borderColor: barBorder,
                 borderWidth: 1,
                 borderRadius: 4,
             }]
@@ -29,12 +36,12 @@ if (chartEl) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { color: '#be185d' },
-                    grid: { color: 'rgba(236, 72, 153, 0.08)' },
+                    ticks: { color: tickColor },
+                    grid: { color: gridColor },
                 },
                 x: {
                     ticks: {
-                        color: '#be185d',
+                        color: tickColor,
                         maxRotation: 0,
                         autoSkip: true,
                         autoSkipPadding: 12,

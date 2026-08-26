@@ -1,48 +1,48 @@
 {% extends 'base.html' %}
-{% block title %}Mooo - Supplement Guide{% endblock %}
+{% block title %}{{ c.brand_name }} — {{ c.guide_title }}{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto">
 
     <!-- Hero header -->
-    <header class="bg-gradient-to-br from-pink-700 via-pink-600 to-pink-500 text-white rounded-3xl p-8 mb-6 text-center shadow-lg">
-        <h1 class="text-3xl font-bold mb-3 leading-tight">Supplement Guide for Inducing Lactation Without Pregnancy</h1>
-        <p class="text-pink-50/90 text-sm leading-relaxed max-w-xl mx-auto">A research-backed reference covering herbal galactagogues and pharmaceutical options, with dosages, side effects, warnings, and sources.</p>
+    <header class="skin-hero p-8 mb-6 text-center shadow-lg">
+        <h1 class="text-3xl font-bold mb-3 leading-tight">{{ c.guide_title }}</h1>
+        <p class="opacity-90 text-sm leading-relaxed max-w-xl mx-auto">{{ c.guide_subtitle }}</p>
     </header>
 
     <!-- Back to supplements link -->
     <div class="mb-6">
-        <a href="{% url 'supplements' %}" class="text-pink-600 hover:text-pink-800 text-sm">← Back to supplements tracker</a>
+        <a href="{% url 'supplements' %}" class="skin-link text-sm">← {{ c.guide_back_link }}</a>
     </div>
 
     <!-- Disclaimer -->
     <div class="bg-red-50 border-l-4 border-red-400 rounded-r-2xl p-5 mb-8 text-sm leading-relaxed text-red-900/90">
-        <strong class="block font-bold text-red-700 text-base mb-1">⚕️ Important: This Is Not Medical Advice</strong>
+        <strong class="block font-bold text-red-700 text-base mb-1">⚕️ {{ c.guide_disclaimer_title }}</strong>
         This guide is for informational purposes only. Inducing lactation should be done under the supervision of a healthcare provider or International Board Certified Lactation Consultant (IBCLC). Supplements and medications can interact with other drugs, affect blood sugar, and carry individual risks. Always consult a qualified professional before starting any protocol.
     </div>
 
     <!-- Intro -->
-    <div class="space-y-3 text-sm leading-relaxed text-pink-700/80 mb-10">
+    <div class="space-y-3 text-sm leading-relaxed skin-text mb-10">
         <p>Inducing lactation without a prior pregnancy is possible through a combination of mechanical breast stimulation (pumping every 2–3 hours), hormonal protocols, and galactagogues — substances believed or shown to promote milk production. This guide covers the most commonly used herbal supplements and pharmaceutical galactagogues, summarizing the best available evidence for each.</p>
         <p>Most research on these substances has been conducted in postpartum people with existing supply concerns rather than in people inducing from scratch. Evidence quality varies widely, and results are individual. Mechanical stimulation remains the foundational and most important component of any lactation induction protocol.</p>
     </div>
 
     <!-- ============== HERBAL SECTION ============== -->
-    <h2 class="text-2xl font-bold text-pink-800 pb-2 mb-6 border-b-2 border-pink-200">Herbal Galactagogues</h2>
+    <h2 class="text-2xl font-bold skin-heading pb-2 mb-6 border-b-2 skin-divider">Herbal Galactagogues</h2>
 
     <!-- FENUGREEK -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Fenugreek</h3>
-            <span class="italic text-pink-500 text-sm">Trigonella foenum-graecum</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Fenugreek</h3>
+            <span class="italic skin-text-muted text-sm">Trigonella foenum-graecum</span>
             <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">The most widely used herbal galactagogue worldwide. Fenugreek may boost prolactin levels and milk volume in the short term, though a 2022 Cochrane review rates the overall evidence as low-certainty. It appears most useful as a short-term boost during early milk production rather than for sustained long-term supply increases.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">The most widely used herbal galactagogue worldwide. Fenugreek may boost prolactin levels and milk volume in the short term, though a 2022 Cochrane review rates the overall evidence as low-certainty. It appears most useful as a short-term boost during early milk production rather than for sustained long-term supply increases.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     1–6 g/day of seed powder; commonly 3.5–6 g/day divided into 3 doses. Capsules often come in 580–610 mg; typical use is 3–4 capsules, 3 times/day. Doses under 3,500 mg/day are frequently reported as ineffective.
                 </div>
                 <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
@@ -95,18 +95,18 @@
     </article>
 
     <!-- BLESSED THISTLE -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Blessed Thistle</h3>
-            <span class="italic text-pink-500 text-sm">Cnicus benedictus</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Blessed Thistle</h3>
+            <span class="italic skin-text-muted text-sm">Cnicus benedictus</span>
             <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">A bitter herb traditionally used alongside fenugreek. Blessed thistle is frequently recommended as a complementary galactagogue; it is most commonly taken in combination with other herbs rather than alone. Controlled clinical evidence specifically for blessed thistle is very limited, but its long traditional use and lactation-consultant endorsement keep it in most herbal lactation blends.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">A bitter herb traditionally used alongside fenugreek. Blessed thistle is frequently recommended as a complementary galactagogue; it is most commonly taken in combination with other herbs rather than alone. Controlled clinical evidence specifically for blessed thistle is very limited, but its long traditional use and lactation-consultant endorsement keep it in most herbal lactation blends.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     Capsules: 3–4 capsules (typically 390 mg each), 3 times/day. Tea: 1 tsp dried herb per cup, steeped 15 min, 2–3×/day. Tincture: 20–40 drops in water, 3×/day.
                 </div>
                 <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
@@ -151,18 +151,18 @@
     </article>
 
     <!-- MORINGA -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Moringa</h3>
-            <span class="italic text-pink-500 text-sm">Moringa oleifera</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Moringa</h3>
+            <span class="italic skin-text-muted text-sm">Moringa oleifera</span>
             <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Known as the "miracle tree" or malunggay, moringa is widely used as a galactagogue in the Philippines and across Asia. A 2025 systematic review of eight RCTs found that moringa supplementation significantly increased breast milk volume (by up to 400 mL/day) and raised serum prolactin levels. It is nutrient-dense, containing vitamins, minerals, and essential amino acids. A separate 2026 meta-analysis found moderate-quality evidence of benefit at doses of 500 mg/day or higher.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">Known as the "miracle tree" or malunggay, moringa is widely used as a galactagogue in the Philippines and across Asia. A 2025 systematic review of eight RCTs found that moringa supplementation significantly increased breast milk volume (by up to 400 mL/day) and raised serum prolactin levels. It is nutrient-dense, containing vitamins, minerals, and essential amino acids. A separate 2026 meta-analysis found moderate-quality evidence of benefit at doses of 500 mg/day or higher.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     500 mg–1,500 mg/day of leaf powder or capsule form. Studies have used various preparations, commonly 250–500 mg capsules taken 2–3 times daily.
                 </div>
                 <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
@@ -210,18 +210,18 @@
     </article>
 
     <!-- GOAT'S RUE -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Goat's Rue</h3>
-            <span class="italic text-pink-500 text-sm">Galega officinalis</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Goat's Rue</h3>
+            <span class="italic skin-text-muted text-sm">Galega officinalis</span>
             <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Goat's rue is especially popular for lactation induction and relactation because it is traditionally believed to stimulate mammary tissue growth — making it potentially valuable for those who have not undergone the breast tissue changes of pregnancy. It is widely used in France and other European countries. However, no scientifically valid clinical trials currently support its use as a standalone galactagogue. One clinical study using a combination product containing goat's rue (with silymarin) showed significantly increased milk production.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">Goat's rue is especially popular for lactation induction and relactation because it is traditionally believed to stimulate mammary tissue growth — making it potentially valuable for those who have not undergone the breast tissue changes of pregnancy. It is widely used in France and other European countries. However, no scientifically valid clinical trials currently support its use as a standalone galactagogue. One clinical study using a combination product containing goat's rue (with silymarin) showed significantly increased milk production.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     Capsules: 1 capsule (typically ~400 mg), 3–4 times/day. Tincture: 1–2 mL, 3×/day. Tea: 1 tsp dried herb per cup, 2×/day. Some sources suggest 1,000–3,000 mg total per day in divided doses.
                 </div>
                 <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
@@ -266,18 +266,18 @@
     </article>
 
     <!-- MILK THISTLE -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Milk Thistle (Silymarin)</h3>
-            <span class="italic text-pink-500 text-sm">Silybum marianum</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Milk Thistle (Silymarin)</h3>
+            <span class="italic skin-text-muted text-sm">Silybum marianum</span>
             <span class="sm:ml-auto bg-green-100 text-green-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Herbal</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Milk thistle's active compound silymarin has been studied for lactation primarily in a combination product (Piùlatte Plus) that also contains phosphatidylserine and goat's rue. In a double-blind RCT of mothers of preterm infants, the treated group produced significantly more daily milk than the placebo group. Silymarin alone has not been well studied for lactation.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">Milk thistle's active compound silymarin has been studied for lactation primarily in a combination product (Piùlatte Plus) that also contains phosphatidylserine and goat's rue. In a double-blind RCT of mothers of preterm infants, the treated group produced significantly more daily milk than the placebo group. Silymarin alone has not been well studied for lactation.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     As studied in combination: 5 g/day of a silymarin + phosphatidylserine + galega product. Standalone silymarin dosing for lactation is not well established; general supplements are 200–400 mg silymarin/day.
                 </div>
                 <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
@@ -314,21 +314,21 @@
     </article>
 
     <!-- ============== PHARMACEUTICAL SECTION ============== -->
-    <h2 class="text-2xl font-bold text-pink-800 pb-2 mb-6 mt-10 border-b-2 border-pink-200">Pharmaceutical Galactagogues (Prescription)</h2>
+    <h2 class="text-2xl font-bold skin-heading pb-2 mb-6 mt-10 border-b-2 skin-divider">Pharmaceutical Galactagogues (Prescription)</h2>
 
     <!-- DOMPERIDONE -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Domperidone</h3>
-            <span class="italic text-pink-500 text-sm">Brand: Motilium</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Domperidone</h3>
+            <span class="italic skin-text-muted text-sm">Brand: Motilium</span>
             <span class="sm:ml-auto bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Rx Only</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">Domperidone is a dopamine antagonist primarily used for GI disorders. It raises prolactin levels as a side effect, making it the most widely used pharmaceutical galactagogue worldwide. It is the preferred drug for induced lactation protocols, including the well-known Newman-Goldfarb protocol. It is not FDA-approved for lactation in the US, and the FDA has cautioned against its use for this purpose. It is available by prescription in Canada, the UK, and many other countries.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">Domperidone is a dopamine antagonist primarily used for GI disorders. It raises prolactin levels as a side effect, making it the most widely used pharmaceutical galactagogue worldwide. It is the preferred drug for induced lactation protocols, including the well-known Newman-Goldfarb protocol. It is not FDA-approved for lactation in the US, and the FDA has cautioned against its use for this purpose. It is available by prescription in Canada, the UK, and many other countries.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     Starting: 10 mg, 3 times/day (30 mg/day). May be increased to 20 mg 3–4×/day (60–80 mg/day) under medical supervision. The Int'l Breastfeeding Centre protocol starts at 30 mg 3×/day and may go up to 40 mg 4×/day (160 mg/day).
                 </div>
                 <div class="bg-green-50 rounded-xl p-3 text-sm text-green-900/90">
@@ -385,18 +385,18 @@
     </article>
 
     <!-- METOCLOPRAMIDE -->
-    <article class="bg-white rounded-3xl border border-pink-100 shadow-sm mb-6 overflow-hidden">
-        <header class="px-6 py-4 border-b border-pink-100 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 class="text-lg font-bold text-pink-800">Metoclopramide</h3>
-            <span class="italic text-pink-500 text-sm">Brand: Reglan / Maxeran</span>
+    <article class="skin-card border skin-divider mb-6 overflow-hidden">
+        <header class="px-6 py-4 border-b skin-divider flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 class="text-lg font-bold skin-heading">Metoclopramide</h3>
+            <span class="italic skin-text-muted text-sm">Brand: Reglan / Maxeran</span>
             <span class="sm:ml-auto bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full">Rx Only</span>
         </header>
         <div class="px-6 py-5">
-            <p class="text-sm text-pink-900/80 leading-relaxed mb-4">An older dopamine antagonist that crosses the blood-brain barrier (unlike domperidone), which gives it a notably higher rate of central nervous system side effects. It is available by prescription in the US but carries an FDA boxed warning for tardive dyskinesia. It is generally considered a second-line option behind domperidone where domperidone is available, due to its worse side effect profile. It is effective at raising prolactin and increasing milk volume in clinical studies.</p>
+            <p class="text-sm skin-text leading-relaxed mb-4">An older dopamine antagonist that crosses the blood-brain barrier (unlike domperidone), which gives it a notably higher rate of central nervous system side effects. It is available by prescription in the US but carries an FDA boxed warning for tardive dyskinesia. It is generally considered a second-line option behind domperidone where domperidone is available, due to its worse side effect profile. It is effective at raising prolactin and increasing milk volume in clinical studies.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                <div class="bg-pink-50 rounded-xl p-3 text-sm text-pink-900/90">
-                    <div class="text-xs uppercase tracking-wider font-bold text-pink-700 mb-1">Typical Dosage</div>
+                <div class="skin-accent-box rounded-xl p-3 text-sm skin-text">
+                    <div class="text-xs uppercase tracking-wider font-bold skin-heading mb-1">Typical Dosage</div>
                     10 mg, 3 times/day for 7–14 days. Some protocols use it for up to 4 weeks. Not generally recommended for long-term use due to side effect risk.
                 </div>
                 <div class="bg-blue-50 rounded-xl p-3 text-sm text-blue-900/90">
@@ -437,9 +437,9 @@
     </article>
 
     <!-- ============== GENERAL TIPS ============== -->
-    <div class="bg-white border border-pink-100 rounded-3xl p-6 mt-10 shadow-sm">
-        <h3 class="text-xl font-bold text-pink-800 mb-4">General Guidance for Lactation Induction</h3>
-        <ul class="list-disc list-outside ml-5 text-sm space-y-3 text-pink-900/80 leading-relaxed">
+    <div class="skin-card border skin-divider p-6 mt-10 shadow-sm">
+        <h3 class="text-xl font-bold skin-heading mb-4">General Guidance for Lactation Induction</h3>
+        <ul class="list-disc list-outside ml-5 text-sm space-y-3 skin-text leading-relaxed">
             <li><strong>Pumping is foundational.</strong> No supplement or medication will work well without consistent mechanical breast stimulation. Aim for every 2–3 hours (including at least once overnight) starting as early as possible — ideally 2+ months before your target date.</li>
             <li><strong>Galactagogues are supplements to pumping, not substitutes.</strong> The LactMed database emphasizes that galactagogues should never replace evaluation and counseling on modifiable factors that affect milk production.</li>
             <li><strong>Full supply is not guaranteed.</strong> Many people inducing lactation produce partial supply. Supplemental nursing systems can allow a breastfeeding relationship even without full production.</li>
@@ -450,7 +450,7 @@
         </ul>
     </div>
 
-    <p class="text-center text-xs text-pink-500/70 mt-10 pt-6 border-t border-pink-200 leading-relaxed">
+    <p class="text-center text-xs skin-text-muted mt-10 pt-6 border-t skin-divider leading-relaxed">
         Guide compiled May 2026 from peer-reviewed sources including the NIH LactMed database, PubMed systematic reviews, and clinical lactation resources. Sources linked throughout. This is an informational reference — not medical advice. Always consult your healthcare provider.
     </p>
 

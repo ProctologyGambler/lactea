@@ -12,4 +12,6 @@ urlpatterns = [
     path('progress/', views.progress, name='progress'),
     path('privacy/', views.privacy, name='privacy'),
     path('export/', views.export_csv, name='export_csv'),
+    path('theme/<str:skin>/', views.set_skin, name='set_skin'),
+    path('signup/', views.signup, name='signup'),
 ]

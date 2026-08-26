@@ -1,5 +1,5 @@
 {% load static %}
-// Mooo service worker (Tier 1: cache the app shell so the app loads offline).
+// Lactea service worker (Tier 1: cache the app shell so the app loads offline).
 //
 // Strategy:
 //   - On install: pre-cache the app shell (HTML pages + static assets).
@@ -13,7 +13,7 @@
 //   When you change anything in the cached list below, bump CACHE_NAME so the
 //   old cache is cleared on activate. Otherwise users see stale assets.
 
-const CACHE_NAME = 'mooo-v2';
+const CACHE_NAME = 'lactea-v6';
 
 const APP_SHELL = [
     '{% url "home" %}',
@@ -23,14 +23,19 @@ const APP_SHELL = [
     '{% url "supplement_guide" %}',
     '{% url "progress" %}',
     '{% url "privacy" %}',
+    '{% static "css/skins.css" %}',
     '{% static "js/tailwind.js" %}',
     '{% static "js/chart.min.js" %}',
     '{% static "js/timer.js" %}',
     '{% static "js/charts.js" %}',
+    '{% static "js/sounds.js" %}',
     '{% static "images/cow-icon.svg" %}',
     '{% static "images/cow-start.svg" %}',
     '{% static "images/cow-stop.svg" %}',
-    '{% static "sounds/mooo.mp3" %}',
+    '{% static "images/via-lactea-icon.svg" %}',
+    '{% static "images/galactra-icon.svg" %}',
+    '{% static "sounds/lactea.mp3" %}',
+    '{% static "sounds/chime.mp3" %}',
     '{% static "manifest.json" %}',
 ];
 

@@ -1,0 +1,944 @@
+/* ================================================================
+   skins.css — Skin-aware styling via CSS custom properties.
+
+   Each [data-skin="X"] block sets the palette.  All component
+   classes below reference these variables, so changing skin =
+   changing palette = new look, zero template changes.
+   ================================================================ */
+
+/* ── Palettes ─────────────────────────────────────────────────── */
+
+[data-skin="cow"] {
+    --bg-grad-a: #f3e7e9;
+    --bg-grad-b: #e6f0fa;
+    --surface-1: #fbcfe8;
+    --surface-1-border: #f9a8d4;
+    --surface-1-hover: #fce7f3;
+    --accent: #be185d;
+    --accent-hover: #9d174d;
+    --accent-soft: #fce7f3;
+    --text-warm: #831843;
+    --text-on-surface: #831843;
+    --text-muted: rgba(131, 24, 67, 0.6);
+    --input-border: #f9a8d4;
+    --input-focus: #ec4899;
+    --tag-bg: #fce7f3;
+    --tag-text: #be185d;
+    --tag-border: #f9a8d4;
+    --tag-active-bg: #db2777;
+    --tag-active-text: #ffffff;
+    --tag-active-border: #be185d;
+    --card-bg: #ffffff;
+    --card-shadow: 0 1px 3px rgba(131, 24, 67, 0.08);
+    --chart-bar: rgba(236, 72, 153, 0.7);
+    --chart-bar-border: rgba(236, 72, 153, 1);
+    --chart-tick: #be185d;
+    --chart-grid: rgba(236, 72, 153, 0.08);
+    --success: #22c55e;
+    --success-bg: #f0fdf4;
+    --success-text: #15803d;
+    --divider: rgba(236, 72, 153, 0.1);
+}
+
+[data-skin="galactra"] {
+    --bg-grad-a: #f8fafc;
+    --bg-grad-b: #eef2f7;
+    --surface-1: #e2e8f0;
+    --surface-1-border: #cbd5e1;
+    --surface-1-hover: #f1f5f9;
+    --accent: #1e40af;
+    --accent-hover: #1e3a8a;
+    --accent-soft: #dbeafe;
+    --text-warm: #0f172a;
+    --text-on-surface: #0f172a;
+    --text-muted: #475569;
+    --input-border: #cbd5e1;
+    --input-focus: #1e40af;
+    --tag-bg: #f1f5f9;
+    --tag-text: #1e3a8a;
+    --tag-border: #cbd5e1;
+    --tag-active-bg: #1e40af;
+    --tag-active-text: #ffffff;
+    --tag-active-border: #1e3a8a;
+    --card-bg: #ffffff;
+    --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+    --chart-bar: rgba(30, 64, 175, 0.7);
+    --chart-bar-border: rgba(30, 64, 175, 1);
+    --chart-tick: #1e40af;
+    --chart-grid: rgba(30, 64, 175, 0.08);
+    --success: #15803d;
+    --success-bg: #f0fdf4;
+    --success-text: #14532d;
+    --divider: rgba(15, 23, 42, 0.08);
+}
+
+/* ── Galactra — pharmaceutical-product interface ───────────────────
+   Lifted from prescribing-information / drug-monograph design language:
+   sharper corners, uppercase tracked wordmark, tabular numerals on
+   metrics, thin 1px rules, an ISI-style safety-information footer band.
+   Quiet by default; loud where regulators would be. */
+
+[data-skin="galactra"] body,
+[data-skin="galactra"] {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+[data-skin="galactra"] .app-nav {
+    background: #ffffff;
+    border-bottom: 1px solid var(--surface-1-border);
+    box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
+}
+
+[data-skin="galactra"] .app-wordmark {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+[data-skin="galactra"] .skin-heading {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+[data-skin="galactra"] .skin-subheading {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+[data-skin="galactra"] .skin-stat-value {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+[data-skin="galactra"] .skin-stat-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+}
+
+[data-skin="galactra"] .skin-card {
+    border: 1px solid var(--surface-1-border);
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+[data-skin="galactra"] .skin-btn-primary,
+[data-skin="galactra"] .skin-btn-soft {
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+[data-skin="galactra"] .skin-input {
+    border-radius: 0.125rem;
+    font-feature-settings: "tnum" 1;
+}
+
+[data-skin="galactra"] .skin-tag {
+    border-radius: 0.125rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+[data-skin="galactra"] .skin-divider {
+    border-color: var(--surface-1-border);
+}
+
+[data-skin="galactra"] .skin-timer-display {
+    border-width: 2px;
+    border-color: var(--accent);
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* ISI-style safety-information footer band. Always visible, regulatory-
+   register typography. The footer.message copy carries the disclaimer
+   text — this just gives it the right visual weight. */
+[data-skin="galactra"] .app-footer {
+    background: #f8fafc;
+    color: #475569;
+    border-top: 2px solid var(--accent);
+    text-align: left;
+    font-size: 0.75rem;
+    line-height: 1.6;
+}
+
+[data-skin="galactra"] .app-footer > p:first-child {
+    max-width: 56rem;
+    margin: 0 auto 0.75rem;
+    padding: 0 1.25rem;
+}
+
+[data-skin="galactra"] .app-footer > div {
+    justify-content: center;
+}
+
+/* ── Galactra page-level components ────────────────────────────────
+   Per-skin home (templates/skins/galactra/home.html) uses these. They
+   are namespaced .pharma-* so other skins can pick them up later if
+   they want a pharma-coded section. Scoped to [data-skin="galactra"]
+   so the styles only apply when the skin is active. */
+
+[data-skin="galactra"] .pharma-protocol-header {
+    background: var(--accent);
+    color: #ffffff;
+    padding: 0.625rem 1rem;
+    border-radius: 0.25rem;
+}
+
+[data-skin="galactra"] .pharma-protocol-header__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+[data-skin="galactra"] .pharma-protocol-header__indication {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+}
+
+[data-skin="galactra"] .pharma-protocol-header__day {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+[data-skin="galactra"] .pharma-protocol-header__day-num {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-left: 0.125rem;
+    vertical-align: -0.125em;
+}
+
+[data-skin="galactra"] .pharma-isi-brief {
+    background: #fef3c7;
+    border-left: 3px solid #ca8a04;
+    border-radius: 0.125rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: #713f12;
+}
+
+[data-skin="galactra"] .pharma-isi-brief__title {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #713f12;
+    margin-bottom: 0.25rem;
+}
+
+[data-skin="galactra"] .pharma-isi-brief__link {
+    text-decoration: underline;
+    color: #713f12;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-left: 0.25rem;
+}
+
+[data-skin="galactra"] .pharma-section-title {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+[data-skin="galactra"] .pharma-metric-table,
+[data-skin="galactra"] .pharma-records-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+[data-skin="galactra"] .pharma-metric-table th,
+[data-skin="galactra"] .pharma-records-table th {
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--surface-1-border);
+    background: #f8fafc;
+}
+
+[data-skin="galactra"] .pharma-metric-table th.num,
+[data-skin="galactra"] .pharma-records-table th.num,
+[data-skin="galactra"] .pharma-records-table td.num {
+    text-align: right;
+}
+
+[data-skin="galactra"] .pharma-metric-table td,
+[data-skin="galactra"] .pharma-records-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--surface-1-border);
+    font-size: 0.9375rem;
+    color: var(--text-on-surface);
+}
+
+[data-skin="galactra"] .pharma-metric-table tr:last-child td,
+[data-skin="galactra"] .pharma-records-table tr:last-child td {
+    border-bottom: none;
+}
+
+[data-skin="galactra"] .pharma-metric-table td.value,
+[data-skin="galactra"] .pharma-records-table td.value {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.0625rem;
+}
+
+[data-skin="galactra"] .pharma-metric-table .unit,
+[data-skin="galactra"] .pharma-records-table .unit {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-left: 0.125rem;
+}
+
+[data-skin="galactra"] .pharma-status-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.125rem;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    line-height: 1.7;
+    border: 1px solid transparent;
+}
+
+[data-skin="galactra"] .pharma-status-recent {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+}
+
+[data-skin="galactra"] .pharma-status-due {
+    background: #fef3c7;
+    color: #854d0e;
+    border-color: #fde68a;
+}
+
+[data-skin="galactra"] .pharma-status-overdue {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #fecaca;
+}
+
+[data-skin="galactra"] .pharma-status-not_started {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: var(--surface-1-border);
+}
+
+[data-skin="galactra"] .pharma-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0.25rem 0;
+}
+
+[data-skin="galactra"] .pharma-meta__label {
+    color: var(--text-muted);
+}
+
+[data-skin="galactra"] .pharma-meta__value {
+    color: var(--text-on-surface);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+[data-skin="galactra"] .pharma-cta {
+    text-decoration: none;
+}
+
+[data-skin="galactra"] .pharma-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+[data-skin="galactra"] .pharma-link:hover {
+    text-decoration: underline;
+}
+
+[data-skin="galactra"] .pharma-regimen {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+[data-skin="galactra"] .pharma-regimen__row {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr auto;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--surface-1-border);
+    font-size: 0.875rem;
+}
+
+[data-skin="galactra"] .pharma-regimen__row:last-child {
+    border-bottom: none;
+}
+
+[data-skin="galactra"] .pharma-regimen__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.125rem;
+    background: #f1f5f9;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 700;
+    border: 1px solid var(--surface-1-border);
+}
+
+[data-skin="galactra"] .pharma-regimen__mark.is-administered {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+}
+
+[data-skin="galactra"] .pharma-regimen__name {
+    font-weight: 600;
+    color: var(--text-on-surface);
+}
+
+[data-skin="galactra"] .pharma-regimen__dose {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+[data-skin="galactra"] .pharma-timer-display {
+    font-family: 'SF Mono', 'Menlo', 'Cascadia Mono', 'Consolas', monospace;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    padding: 2rem 0;
+    border: 2px solid var(--surface-1-border);
+    border-radius: 0.25rem;
+    background: #f8fafc;
+}
+
+[data-skin="galactra"] .pharma-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+[data-skin="galactra"] .pharma-input-numeric {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1;
+    font-size: 1rem;
+}
+
+/* Via Lactea — the Milky Way. Deep night-sky palette with starfield. */
+[data-skin="via_lactea"] {
+    --bg-grad-a: #050810;
+    --bg-grad-b: #0a1129;
+    --surface-1: #1e293b;
+    --surface-1-border: #334155;
+    --surface-1-hover: #243149;
+    --accent: #e2e8f0;
+    --accent-hover: #ffffff;
+    --accent-soft: rgba(226, 232, 240, 0.08);
+    --text-warm: #fef3c7;
+    --text-on-surface: #e2e8f0;
+    --text-muted: rgba(226, 232, 240, 0.55);
+    --input-border: rgba(226, 232, 240, 0.25);
+    --input-focus: #e2e8f0;
+    --tag-bg: rgba(226, 232, 240, 0.1);
+    --tag-text: #e2e8f0;
+    --tag-border: rgba(226, 232, 240, 0.2);
+    --tag-active-bg: #e2e8f0;
+    --tag-active-text: #0a1129;
+    --tag-active-border: #e2e8f0;
+    --card-bg: rgba(15, 23, 42, 0.6);
+    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --chart-bar: rgba(226, 232, 240, 0.7);
+    --chart-bar-border: rgba(226, 232, 240, 1);
+    --chart-tick: #cbd5e1;
+    --chart-grid: rgba(226, 232, 240, 0.1);
+    --success: #4ade80;
+    --success-bg: rgba(74, 222, 128, 0.15);
+    --success-text: #4ade80;
+    --divider: rgba(226, 232, 240, 0.15);
+}
+
+/* Via Lactea body — deep night sky with the Milky Way running diagonally.
+   A soft diagonal band suggests the galactic plane; a warm bulge anchors
+   it. Stars are added via ::before / ::after below. */
+body[data-skin="via_lactea"] {
+    background:
+        /* Galactic plane — soft diagonal cloud across the sky */
+        linear-gradient(115deg,
+            transparent 26%,
+            rgba(226, 232, 240, 0.045) 42%,
+            rgba(254, 243, 199, 0.055) 50%,
+            rgba(226, 232, 240, 0.045) 58%,
+            transparent 74%),
+        /* Galactic bulge — warm core glow off-center */
+        radial-gradient(ellipse 45% 22% at 62% 56%, rgba(254, 243, 199, 0.07) 0%, transparent 60%),
+        /* Base sky */
+        linear-gradient(180deg, var(--bg-grad-a) 0%, var(--bg-grad-b) 55%, var(--bg-grad-a) 100%);
+    background-attachment: fixed;
+    color: var(--text-on-surface);
+    min-height: 100vh;
+}
+
+body[data-skin="via_lactea"]::before,
+body[data-skin="via_lactea"]::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-repeat: repeat;
+}
+
+/* Starfield layer 1: many small bright stars, slow twinkle */
+body[data-skin="via_lactea"]::before {
+    background-image:
+        radial-gradient(0.8px 0.8px at 23px 45px, #ffffff, transparent),
+        radial-gradient(1px 1px at 110px 87px, #ffffff, transparent),
+        radial-gradient(1.3px 1.3px at 78px 21px, #ffffff, transparent),
+        radial-gradient(0.8px 0.8px at 162px 134px, #cbd5e1, transparent),
+        radial-gradient(1px 1px at 45px 198px, #ffffff, transparent),
+        radial-gradient(0.8px 0.8px at 195px 67px, #ffffff, transparent),
+        radial-gradient(1.1px 1.1px at 220px 220px, #ffffff, transparent),
+        radial-gradient(0.6px 0.6px at 10px 130px, #cbd5e1, transparent),
+        radial-gradient(1px 1px at 175px 175px, #ffffff, transparent),
+        radial-gradient(0.8px 0.8px at 90px 240px, #ffffff, transparent),
+        radial-gradient(0.7px 0.7px at 140px 60px, #ffffff, transparent),
+        radial-gradient(0.9px 0.9px at 50px 110px, #ffffff, transparent);
+    background-size: 250px 250px;
+    animation: twinkle-slow 6s ease-in-out infinite alternate;
+}
+
+/* Starfield layer 2: fewer, slightly larger, with warm amber accents */
+body[data-skin="via_lactea"]::after {
+    background-image:
+        radial-gradient(1.5px 1.5px at 60px 80px, #fef3c7, transparent),
+        radial-gradient(1.6px 1.6px at 180px 50px, #ffffff, transparent),
+        radial-gradient(1.3px 1.3px at 30px 220px, #fef3c7, transparent),
+        radial-gradient(1.5px 1.5px at 240px 180px, #ffffff, transparent),
+        radial-gradient(1.7px 1.7px at 120px 160px, #ffffff, transparent);
+    background-size: 320px 320px;
+    animation: twinkle-warm 4.5s ease-in-out infinite alternate;
+    opacity: 0.85;
+}
+
+@keyframes twinkle-slow {
+    from { opacity: 0.55; }
+    to   { opacity: 0.95; }
+}
+
+@keyframes twinkle-warm {
+    from { opacity: 0.5; }
+    to   { opacity: 0.9; }
+}
+
+/* Make sure content sits above the starfield. */
+body[data-skin="via_lactea"] nav,
+body[data-skin="via_lactea"] main,
+body[data-skin="via_lactea"] footer,
+body[data-skin="via_lactea"] #first-save-sound-prompt {
+    position: relative;
+    z-index: 1;
+}
+
+/* The footer's accent-soft is now nearly invisible on dark; give it a hint of structure. */
+body[data-skin="via_lactea"] .app-footer {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--divider);
+}
+
+/* Nav surface in dark mode: similar treatment. */
+body[data-skin="via_lactea"] .app-nav {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--divider);
+}
+
+/* Cards: subtle border so they read against the starfield. */
+body[data-skin="via_lactea"] .skin-card {
+    border: 1px solid var(--divider);
+    backdrop-filter: blur(4px);
+}
+
+
+/* ── Base layout ──────────────────────────────────────────────── */
+
+body[data-skin] {
+    background: linear-gradient(135deg, var(--bg-grad-a), var(--bg-grad-b));
+    min-height: 100vh;
+}
+
+
+/* ── Navigation ───────────────────────────────────────────────── */
+
+.app-nav {
+    background: var(--surface-1);
+    border-bottom: 4px solid var(--surface-1-border);
+}
+
+.app-nav a {
+    color: var(--text-on-surface);
+}
+
+.app-nav a:hover {
+    background: var(--surface-1-hover);
+}
+
+.app-nav a.is-active {
+    background: var(--surface-1-hover);
+    font-weight: 500;
+}
+
+.app-wordmark {
+    color: var(--accent);
+}
+
+
+/* ── Typography helpers ───────────────────────────────────────── */
+
+.skin-heading {
+    color: var(--accent);
+}
+
+.skin-subheading {
+    color: var(--text-warm);
+}
+
+.skin-text {
+    color: var(--text-on-surface);
+}
+
+.skin-text-muted {
+    color: var(--text-muted);
+}
+
+
+/* ── Cards ────────────────────────────────────────────────────── */
+
+.skin-card {
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    border-radius: 1.5rem;
+}
+
+
+/* ── Inputs (replaces hardcoded border-pink-300) ──────────────── */
+
+.skin-input {
+    border: 1px solid var(--input-border);
+    background: var(--card-bg);
+    color: var(--text-on-surface);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.skin-input:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(var(--input-focus), 0.15);
+}
+
+.skin-input::placeholder {
+    color: var(--text-muted);
+}
+
+
+/* ── Tags / pill selectors (mood, breast feeling) ─────────────── */
+
+.skin-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--tag-border);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.875rem;
+}
+
+.skin-tag:hover {
+    background: var(--surface-1-hover);
+}
+
+/* When the hidden checkbox peer is checked */
+.peer:checked ~ .skin-tag {
+    background: var(--tag-active-bg);
+    color: var(--tag-active-text);
+    border-color: var(--tag-active-border);
+}
+
+.peer:focus ~ .skin-tag {
+    box-shadow: 0 0 0 2px var(--tag-border);
+}
+
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+
+.skin-btn-primary {
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    border-radius: 1.5rem;
+    transition: background 0.15s;
+}
+
+.skin-btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.skin-btn-soft {
+    background: var(--tag-bg);
+    color: var(--accent);
+    border-radius: 9999px;
+    transition: background 0.15s;
+}
+
+.skin-btn-soft:hover {
+    background: var(--surface-1-hover);
+}
+
+
+/* ── Supplement taken toggle ──────────────────────────────────── */
+
+.skin-taken {
+    background: var(--success);
+    color: white;
+}
+
+.skin-taken:hover {
+    opacity: 0.9;
+}
+
+.skin-not-taken {
+    background: var(--card-bg);
+    color: var(--accent);
+    border: 1px solid var(--tag-border);
+}
+
+.skin-not-taken:hover {
+    background: var(--tag-bg);
+}
+
+
+/* ── Dividers ─────────────────────────────────────────────────── */
+
+.skin-divider {
+    border-color: var(--divider);
+}
+
+
+/* ── Progress tiles ───────────────────────────────────────────── */
+
+.skin-stat-value {
+    color: var(--accent);
+}
+
+.skin-stat-label {
+    color: var(--text-muted);
+}
+
+
+/* ── Scale selectors (energy, sleep, etc.) ────────────────────── */
+
+.skin-scale {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.skin-scale label {
+    cursor: pointer;
+}
+
+.skin-scale input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.skin-scale .scale-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--tag-border);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: all 0.15s;
+}
+
+.skin-scale .scale-option:hover {
+    background: var(--surface-1-hover);
+}
+
+.skin-scale input[type="radio"]:checked + .scale-option {
+    background: var(--tag-active-bg);
+    color: var(--tag-active-text);
+    border-color: var(--tag-active-border);
+}
+
+.skin-scale input[type="radio"]:focus + .scale-option {
+    box-shadow: 0 0 0 2px var(--tag-border);
+}
+
+
+/* ── Pump timer display ───────────────────────────────────────── */
+
+.skin-timer-display {
+    border: 8px solid var(--surface-1-border);
+}
+
+
+/* ── Form error box ───────────────────────────────────────────── */
+
+.skin-error-box {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+}
+
+.skin-error-box ul {
+    list-style: disc;
+    list-style-position: inside;
+    margin-top: 0.25rem;
+}
+
+
+/* ── Hero / accent-box / link — used by content pages ────────── */
+
+.skin-hero {
+    background: var(--accent);
+    color: white;
+    border-radius: 1.5rem;
+}
+
+[data-skin="via_lactea"] .skin-hero {
+    background: rgba(15, 23, 42, 0.7);
+    color: var(--text-warm);
+    border: 1px solid var(--divider);
+    backdrop-filter: blur(4px);
+}
+
+.skin-accent-box {
+    background: var(--accent-soft);
+}
+
+.skin-link {
+    color: var(--accent);
+    transition: color 0.15s;
+}
+
+.skin-link:hover {
+    opacity: 0.8;
+}
+
+
+/* ── Footer ───────────────────────────────────────────────────── */
+
+.app-footer {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-top: 1px solid var(--surface-1-border);
+}
+
+.app-footer a {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.app-footer a:hover {
+    color: var(--text-warm);
+}
+
+.app-theme-toggle-active {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+/* ── Sound mute toggle ────────────────────────────────────────── */
+
+.skin-mute-btn {
+    background: transparent;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition: background 0.15s, opacity 0.15s;
+    opacity: 0.7;
+}
+
+.skin-mute-btn:hover {
+    background: var(--surface-1-hover);
+    opacity: 1;
+}
+
+.skin-mute-btn[aria-pressed="true"] {
+    opacity: 1;
+}
+
+
+/* ── First-save sound prompt ──────────────────────────────────── */
+
+.first-save-prompt {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 50;
+    animation: slide-up-fade 0.3s ease-out;
+}
+
+@keyframes slide-up-fade {
+    from { transform: translateY(1rem); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}

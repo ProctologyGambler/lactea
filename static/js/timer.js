@@ -7,7 +7,6 @@ const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
 const resetBtn = document.getElementById('resetBtn');
 const logForm = document.getElementById('log-form');
-const mooSound = document.getElementById('mooSound');
 
 function formatTime(s) {
     const hrs = Math.floor(s / 3600);
@@ -38,7 +37,7 @@ stopBtn.addEventListener('click', () => {
     isRunning = false;
     startBtn.classList.remove('hidden');
     stopBtn.classList.add('hidden');
-    mooSound.play();
+    if (window.playSkinSound) playSkinSound('session_end');
     document.getElementById('id_duration_minutes').value = Math.max(1, Math.round(seconds / 60));
     logForm.classList.remove('hidden');
 });

@@ -1,92 +1,91 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Mooo - Pump Timer{% endblock %}
+{% block title %}{{ c.brand_name }} - {{ c.pump_title }}{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto text-center">
-    <h1 class="text-4xl font-bold text-pink-700 mb-2">Pumping Session 🐮</h1>
-    <p class="text-pink-600 mb-6">Start whenever you're ready</p>
+    <h1 class="text-4xl font-bold skin-heading mb-2">{{ c.pump_title }}</h1>
+    <p class="skin-text-muted mb-6">{{ c.pump_subtitle }}</p>
 
     <!-- Today's Total -->
     {% if today_sessions == 0 %}
-        <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-700 rounded-full px-5 py-2 mb-8 text-sm font-medium">
-            <span>🐄 Ready when you are</span>
+        <div class="inline-flex items-center gap-2 skin-btn-soft px-5 py-2 mb-8 text-sm font-medium">
+            <span>{{ c.pump_ready }}</span>
         </div>
     {% else %}
-        <div class="inline-flex items-center gap-3 bg-pink-100 text-pink-800 rounded-full px-5 py-2 mb-8 text-sm font-medium">
-            <span>🐄 Today:</span>
+        <div class="inline-flex items-center gap-3 skin-btn-soft px-5 py-2 mb-8 text-sm font-medium">
+            <span>{{ c.pump_today_label }}</span>
             <span><strong>{{ today_minutes }}</strong> min</span>
-            <span class="text-pink-400">·</span>
+            <span class="skin-text-muted">·</span>
             <span><strong>{{ today_sessions }}</strong> session{{ today_sessions|pluralize }}</span>
         </div>
     {% endif %}
 
     <!-- Timer Display -->
     <div id="timer-display"
-         class="text-8xl font-mono font-bold bg-white rounded-3xl py-16 shadow-inner border-8 border-pink-300 mb-10">
+         class="text-8xl font-mono font-bold skin-card skin-timer-display py-16 shadow-inner mb-10">
         00:00:00
     </div>
 
     <!-- Controls -->
     <div class="flex justify-center items-center gap-4 mb-4">
-        <button id="startBtn"
-                aria-label="Start pumping session"
-                class="flex flex-col items-center gap-2 px-8 py-5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-3xl shadow-lg transition">
-            <img src="{% static 'images/cow-start.svg' %}" alt="" class="w-24 h-24">
-            <span class="text-xl tracking-wide">START</span>
-        </button>
-
-        <button id="stopBtn"
-                aria-label="Stop pumping session"
-                class="flex flex-col items-center gap-2 px-8 py-5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-3xl shadow-lg transition hidden">
-            <img src="{% static 'images/cow-stop.svg' %}" alt="" class="w-24 h-24">
-            <span class="text-xl tracking-wide">STOP</span>
-        </button>
+        {% include "skins/"|add:request.skin|add:"/_pump_button.html" %}
     </div>
 
     <div class="flex justify-center mb-10">
         <button id="resetBtn"
                 class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 text-xs font-semibold rounded-full shadow-sm transition">
-            RESET
+            {{ c.pump_reset }}
         </button>
     </div>
 
     <!-- Log Session Form -->
     <form id="log-form" method="post" action="{% url 'pump_timer' %}"
-          class="hidden bg-white rounded-3xl p-8 shadow">
+          class="{% if not form.errors %}hidden {% endif %}skin-card p-8"
+          onsubmit="if (window.playSkinSound) playSkinSound('save');">
         {% csrf_token %}
         {{ form.duration_minutes }}
 
-        <h2 class="text-2xl font-semibold mb-6 text-pink-700">Log this session</h2>
+        <h2 class="text-2xl font-semibold mb-6 skin-heading">{{ c.pump_log_title }}</h2>
+
+        {% if form.errors %}
+            <div class="skin-error-box mb-4 text-left">
+                {{ c.pump_form_errors_intro }}
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
         <div class="text-left">
-            <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium mb-1">Notes</label>
+            <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.pump_notes_label }}</label>
             {{ form.notes }}
         </div>
 
         <div class="grid grid-cols-2 gap-4 text-left mt-4">
             <div>
-                <label for="{{ form.left_ml.id_for_label }}" class="block text-sm font-medium mb-1">Left Breast (ml)</label>
+                <label for="{{ form.left_ml.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.pump_left_label }}</label>
                 {{ form.left_ml }}
             </div>
             <div>
-                <label for="{{ form.right_ml.id_for_label }}" class="block text-sm font-medium mb-1">Right Breast (ml)</label>
+                <label for="{{ form.right_ml.id_for_label }}" class="block text-sm font-medium mb-1 skin-text">{{ c.pump_right_label }}</label>
                 {{ form.right_ml }}
             </div>
         </div>
 
         <div class="flex gap-3 mt-8">
             <button type="submit" id="saveSessionBtn"
-                    class="flex-1 py-5 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xl rounded-3xl">
-                💾 Save Session
+                    class="flex-1 py-5 skin-btn-primary text-xl">
+                {{ c.pump_save }}
             </button>
             <button type="button" id="cancelBtn"
                     class="flex-1 py-5 bg-gray-300 hover:bg-gray-400 font-bold text-xl rounded-3xl">
-                Cancel
+                {{ c.pump_cancel }}
             </button>
         </div>
     </form>
-  <audio id="mooSound" src="{% static 'sounds/mooo.mp3' %}"></audio>
 </div>
 
 <script src="{% static 'js/timer.js' %}"></script>

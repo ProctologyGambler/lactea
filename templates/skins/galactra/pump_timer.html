@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ c.brand_name }} — {{ c.pump_title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+
+    {# Protocol header #}
+    <header class="pharma-protocol-header mb-4">
+        <div class="flex items-baseline justify-between gap-4 flex-wrap">
+            <div>
+                <div class="pharma-protocol-header__eyebrow">{{ c.pump_protocol_header }}</div>
+                <div class="pharma-protocol-header__indication">{{ c.pump_subtitle }}</div>
+            </div>
+            <div class="pharma-protocol-header__day">
+                {% if protocol_day > 0 %}
+                    {{ c.home_protocol_day_prefix }}&nbsp;<span class="pharma-protocol-header__day-num">{{ protocol_day }}</span>
+                {% else %}
+                    {{ c.home_protocol_not_started }}
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {# Cadence context + today's cumulative metrics #}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        {# Cadence card #}
+        <div class="skin-card p-4">
+            <div class="pharma-section-title mb-2">{{ c.pump_cadence_target }}</div>
+            {% if time_since_last %}
+                <div class="pharma-meta">
+                    <span class="pharma-meta__label">{{ c.pump_cadence_last }}:</span>
+                    <span class="pharma-meta__value">{{ time_since_last }} ago</span>
+                </div>
+                <div class="mt-1">
+                    <span class="pharma-status-badge pharma-status-{{ session_status }}">
+                        {% if session_status == 'recent' %}{{ c.home_status_recent }}
+                        {% elif session_status == 'due' %}{{ c.home_status_due }}
+                        {% elif session_status == 'overdue' %}{{ c.home_status_overdue }}
+                        {% endif %}
+                    </span>
+                </div>
+            {% else %}
+                <div class="pharma-meta">{{ c.home_last_session_never }}</div>
+            {% endif %}
+        </div>
+
+        {# Today cumulative card #}
+        <div class="skin-card p-0 overflow-hidden">
+            <div class="pharma-section-title px-4 pt-3 pb-1">{{ c.home_today_section }}</div>
+            <table class="pharma-metric-table">
+                <thead>
+                    <tr>
+                        <th>{{ c.pump_today_col_sessions }}</th>
+                        <th>{{ c.pump_today_col_duration }}</th>
+                        <th>{{ c.pump_today_col_yield }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="value">{{ today_sessions }}</td>
+                        <td class="value">{{ today_minutes }} <span class="unit">min</span></td>
+                        <td class="value">{{ today_ml }} <span class="unit">mL</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# Timer card #}
+    <section class="skin-card p-6 mb-6">
+        {# In-progress indicator (shown/hidden by timer.js via startBtn/stopBtn logic) #}
+        <div id="galactra-in-progress" class="hidden mb-3">
+            <span class="pharma-status-badge pharma-status-due">{{ c.pump_in_progress }}</span>
+        </div>
+
+        {# Timer display #}
+        <div id="timer-display"
+             class="pharma-timer-display text-center mb-6">
+            00:00:00
+        </div>
+
+        {# Start / Stop / Reset controls #}
+        <div class="flex justify-center items-center gap-4 mb-2">
+            {% include "_pump_button.html" %}
+        </div>
+
+        <div class="flex justify-center">
+            <button id="resetBtn"
+                    class="skin-btn-soft px-5 py-1.5 text-xs">
+                {{ c.pump_discard }}
+            </button>
+        </div>
+    </section>
+
+    {# Log session form — hidden until Stop is pressed (timer.js manages) #}
+    <form id="log-form" method="post" action="{% url 'pump_timer' %}"
+          class="{% if not form.errors %}hidden {% endif %}skin-card p-6 mb-6"
+          onsubmit="if (window.playSkinSound) playSkinSound('save');">
+        {% csrf_token %}
+        {{ form.duration_minutes }}
+
+        <h2 class="pharma-section-title mb-4">{{ c.pump_log_title }}</h2>
+
+        {% if form.errors %}
+            <div class="skin-error-box mb-4 text-left">
+                {{ c.pump_form_errors_intro }}
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="{{ form.left_ml.id_for_label }}"
+                       class="block text-xs font-medium mb-1 pharma-label">{{ c.pump_left_label }}</label>
+                <input type="number" name="left_ml" id="{{ form.left_ml.id_for_label }}"
+                       value="{{ form.left_ml.value|default_if_none:'' }}"
+                       class="skin-input w-full px-3 py-2 pharma-input-numeric" min="0" step="1"
+                       placeholder="0">
+            </div>
+            <div>
+                <label for="{{ form.right_ml.id_for_label }}"
+                       class="block text-xs font-medium mb-1 pharma-label">{{ c.pump_right_label }}</label>
+                <input type="number" name="right_ml" id="{{ form.right_ml.id_for_label }}"
+                       value="{{ form.right_ml.value|default_if_none:'' }}"
+                       class="skin-input w-full px-3 py-2 pharma-input-numeric" min="0" step="1"
+                       placeholder="0">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.notes.id_for_label }}"
+                   class="block text-xs font-medium mb-1 pharma-label">{{ c.pump_notes_label }}</label>
+            <textarea name="notes" id="{{ form.notes.id_for_label }}"
+                      rows="2" class="skin-input w-full px-3 py-2"
+                      placeholder="">{{ form.notes.value|default_if_none:'' }}</textarea>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="submit" id="saveSessionBtn"
+                    class="flex-1 py-3 skin-btn-primary">
+                {{ c.pump_save }}
+            </button>
+            <button type="button" id="cancelBtn"
+                    class="py-3 px-5 skin-btn-soft">
+                {{ c.pump_cancel }}
+            </button>
+        </div>
+    </form>
+
+</div>
+
+<script src="{% static 'js/timer.js' %}"></script>
+<script>
+// Galactra: toggle the "Session in progress" badge alongside start/stop.
+(function() {
+    var badge = document.getElementById('galactra-in-progress');
+    if (!badge) return;
+    var startBtn = document.getElementById('startBtn');
+    var stopBtn = document.getElementById('stopBtn');
+    if (startBtn) {
+        startBtn.addEventListener('click', function() {
+            badge.classList.remove('hidden');
+        });
+    }
+    if (stopBtn) {
+        stopBtn.addEventListener('click', function() {
+            badge.classList.add('hidden');
+        });
+    }
+    var resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            badge.classList.add('hidden');
+        });
+    }
+})();
+</script>
+{% endblock %}

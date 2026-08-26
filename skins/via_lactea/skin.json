@@ -1,0 +1,49 @@
+{
+  "name": "via_lactea",
+  "display_name": "Via Lactea ✦",
+  "description": "A quiet sky for a slow practice. Deep night, soft starfield, warm amber accents.",
+  "palette": {
+    "bg-grad-a": "#050810",
+    "bg-grad-b": "#0a1129",
+    "surface-1": "#1e293b",
+    "surface-1-border": "#334155",
+    "surface-1-hover": "#243149",
+    "accent": "#e2e8f0",
+    "accent-soft": "rgba(226, 232, 240, 0.08)",
+    "text-warm": "#fef3c7",
+    "text-on-surface": "#e2e8f0",
+    "input-border": "rgba(226, 232, 240, 0.25)",
+    "input-focus": "#e2e8f0",
+    "tag-bg": "rgba(226, 232, 240, 0.1)",
+    "tag-text": "#e2e8f0",
+    "tag-active-bg": "#e2e8f0",
+    "tag-active-text": "#0a1129",
+    "card-bg": "rgba(15, 23, 42, 0.6)",
+    "chart-bar": "rgba(226, 232, 240, 0.7)",
+    "chart-bar-border": "rgba(226, 232, 240, 1)",
+    "chart-tick": "#cbd5e1",
+    "chart-grid": "rgba(226, 232, 240, 0.1)"
+  },
+  "fonts": {
+    "display": "system-ui, sans-serif",
+    "body": "system-ui, sans-serif"
+  },
+  "features": {
+    "show_evidence_grades": true,
+    "show_citations_inline": false,
+    "show_streaks": true,
+    "show_encouragement": true,
+    "supplement_guide_prominence": "primary",
+    "daily_log_prominence": "primary"
+  },
+  "sounds": {
+    "tap": "chime.mp3",
+    "save": "chime.mp3",
+    "milestone": "chime.mp3",
+    "session_end": "chime.mp3"
+  },
+  "pwa": {
+    "background_color": "#050810",
+    "theme_color": "#0a1129"
+  }
+}

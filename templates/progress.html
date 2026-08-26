@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Mooo - Progress{% endblock %}
+{% block title %}{{ c.brand_name }} - {{ c.progress_title }}{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold text-pink-700 mb-2 text-center">Progress 📈</h1>
-    <p class="text-pink-600 mb-6 text-center">Your pumping trends over time</p>
+    <h1 class="text-4xl font-bold skin-heading mb-2 text-center">{{ c.progress_title }}</h1>
+    <p class="skin-text-muted mb-6 text-center">{{ c.progress_subtitle }}</p>
 
     <!-- Window selector -->
     <div class="flex justify-center gap-2 mb-8">
         {% for opt in window_options %}
             <a href="?days={{ opt }}"
                class="px-4 py-2 rounded-full text-sm font-medium transition
-                      {% if days == opt %}bg-pink-600 text-white shadow{% else %}bg-pink-100 text-pink-700 hover:bg-pink-200{% endif %}">
+                      {% if days == opt %}skin-btn-primary shadow{% else %}skin-btn-soft{% endif %}">
                 Last {{ opt }} days
             </a>
         {% endfor %}
@@ -20,59 +20,58 @@
 
     <!-- Summary tiles -->
     <div class="grid grid-cols-2 gap-4 mb-3">
-        <div class="bg-white rounded-3xl p-6 shadow text-center">
-            <div class="text-sm uppercase tracking-wide text-pink-500 mb-1">Total time</div>
-            <div class="text-4xl font-bold text-pink-700">{{ total_minutes }}<span class="text-xl font-medium text-pink-500 ml-1">min</span></div>
+        <div class="skin-card p-6 text-center">
+            <div class="text-sm uppercase tracking-wide skin-stat-label mb-1">{{ c.progress_total_time }}</div>
+            <div class="text-4xl font-bold skin-stat-value">{{ total_minutes }}<span class="text-xl font-medium skin-text-muted ml-1">min</span></div>
         </div>
-        <div class="bg-white rounded-3xl p-6 shadow text-center">
-            <div class="text-sm uppercase tracking-wide text-pink-500 mb-1">Sessions</div>
-            <div class="text-4xl font-bold text-pink-700">{{ total_sessions }}</div>
+        <div class="skin-card p-6 text-center">
+            <div class="text-sm uppercase tracking-wide skin-stat-label mb-1">{{ c.progress_sessions }}</div>
+            <div class="text-4xl font-bold skin-stat-value">{{ total_sessions }}</div>
         </div>
     </div>
 
-    <!-- Minimized volume indicator -->
-    <p class="text-center text-xs text-pink-500/80 mb-8">
-        💧 Volume tracked: <strong class="text-pink-600">{{ total_ml }}</strong> ml
+    <p class="text-center text-xs skin-text-muted mb-8">
+        {{ c.progress_volume_icon }} {{ c.progress_volume_tracked }}: <strong class="skin-heading">{{ total_ml }}</strong> ml
     </p>
 
     <!-- Chart -->
-    <div class="bg-white rounded-3xl p-6 shadow mb-8">
-        <h2 class="text-lg font-semibold text-pink-700 mb-4">Minutes per day</h2>
+    <div class="skin-card p-6 mb-8">
+        <h2 class="text-lg font-semibold skin-heading mb-4">{{ c.progress_minutes_per_day }}</h2>
         {% if total_sessions == 0 %}
-            <p class="text-center text-pink-500 py-10">No pumping sessions logged yet. Hit the pump tab to get started 🐮</p>
+            <p class="text-center skin-text-muted py-10">{{ c.progress_no_sessions }}</p>
         {% else %}
             <canvas id="progressChart" height="120"></canvas>
         {% endif %}
     </div>
 
     <!-- Daily table -->
-    <div class="bg-white rounded-3xl p-6 shadow">
-        <h2 class="text-lg font-semibold text-pink-700 mb-4">Daily breakdown</h2>
+    <div class="skin-card p-6">
+        <h2 class="text-lg font-semibold skin-heading mb-4">{{ c.progress_daily_breakdown }}</h2>
         {% if table_rows %}
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
-                        <tr class="text-pink-500 text-xs uppercase tracking-wide border-b border-pink-100">
+                        <tr class="skin-text-muted text-xs uppercase tracking-wide border-b skin-divider">
                             <th class="py-2 pr-4">Date</th>
                             <th class="py-2 pr-4">Sessions</th>
                             <th class="py-2 pr-4">Minutes</th>
-                            <th class="py-2 text-pink-400/70">ml</th>
+                            <th class="py-2">ml</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for row in table_rows %}
-                            <tr class="border-b border-pink-50 last:border-0">
-                                <td class="py-2 pr-4 font-medium text-pink-800">{{ row.date|date:"M j, Y" }}</td>
-                                <td class="py-2 pr-4">{{ row.sessions }}</td>
-                                <td class="py-2 pr-4">{{ row.minutes }}</td>
-                                <td class="py-2 text-pink-500/80">{{ row.ml }}</td>
+                            <tr class="border-b skin-divider last:border-0">
+                                <td class="py-2 pr-4 font-medium skin-text">{{ row.date|date:"M j, Y" }}</td>
+                                <td class="py-2 pr-4 skin-text">{{ row.sessions }}</td>
+                                <td class="py-2 pr-4 skin-text">{{ row.minutes }}</td>
+                                <td class="py-2 skin-text-muted">{{ row.ml }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         {% else %}
-            <p class="text-pink-500 text-sm text-center py-4">Nothing logged in this window yet.</p>
+            <p class="skin-text-muted text-sm text-center py-4">{{ c.progress_no_data_window }}</p>
         {% endif %}
     </div>
 </div>

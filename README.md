@@ -1,4 +1,4 @@
-# Mooo 🥛
+# Lactea 🥛
 
 **A gentle, private tracker for people inducing lactation without pregnancy.**
 
@@ -11,13 +11,13 @@ Log pumping sessions, supplements, and how your body and mood feel each day — 
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Status](https://img.shields.io/badge/status-active%20prototype-orange)
 
-> ⚕️ **This is not medical advice.** Mooo is an informational and personal-tracking tool, nothing more. Inducing lactation should be done under the care of a healthcare provider or an International Board Certified Lactation Consultant (IBCLC). The guide summarizes published research — it does not prescribe, diagnose, or account for your medications, conditions, or dosages. See the in-app `/privacy/` page for exactly what happens to your data.
+> ⚕️ **This is not medical advice.** Lactea is an informational and personal-tracking tool, nothing more. Inducing lactation should be done under the care of a healthcare provider or an International Board Certified Lactation Consultant (IBCLC). The guide summarizes published research — it does not prescribe, diagnose, or account for your medications, conditions, or dosages. See the in-app `/privacy/` page for exactly what happens to your data.
 
 ---
 
 ## Who it's for
 
-Inducing lactation isn't only a postpartum story. Mooo is built to feel warm and non-clinical for anyone doing this work, including:
+Inducing lactation isn't only a postpartum story. Lactea is built to feel warm and non-clinical for anyone doing this work, including:
 
 - adoptive and intended parents preparing to nurse
 - trans women and transfeminine people
@@ -25,7 +25,7 @@ Inducing lactation isn't only a postpartum story. Mooo is built to feel warm and
 - surrogacy and co-parenting arrangements
 - anyone relactating or inducing without a current pregnancy
 
-The through-line: **mechanical stimulation does the heavy lifting, and the rest of your routine plays a supporting role.** Mooo is designed to make that routine easy to keep, not to make promises.
+The through-line: **mechanical stimulation does the heavy lifting, and the rest of your routine plays a supporting role.** Lactea is designed to make that routine easy to keep, not to make promises.
 
 ---
 
@@ -43,7 +43,7 @@ The through-line: **mechanical stimulation does the heavy lifting, and the rest 
 
 ## 🎨 Skins — the heart of the project
 
-Communities of practice don't want the same app with a different logo. They want an app that *sounds like them*. Mooo's answer is **skins**: one codebase, many faces.
+Communities of practice don't want the same app with a different logo. They want an app that *sounds like them*. Lactea's answer is **skins**: one codebase, many faces.
 
 A skin is more than a color swap. Each one bundles:
 
@@ -56,7 +56,7 @@ Everything is described in a per-skin `skin.json` manifest, so adding a communit
 
 The original cow theme (**Moo**) becomes one skin among many rather than the whole identity — that's the resolution to the "the cow is polarizing" feedback. A neutral **Plain** skin ships alongside it for clinical or IBCLC-supervised contexts, and community-shaped skins follow from there.
 
-> **On the name:** *Mooo* is the working project/codename while the public rebrand is still being finalized (the direction is "milky, not bovine"). It's isolated to one config value plus the default skin, so it's a one-line swap when the name lands.
+> **On the name:** *Lactea* is the working project/codename while the public rebrand is still being finalized (the direction is "milky, not bovine"). It's isolated to one config value plus the default skin, so it's a one-line swap when the name lands.
 
 ---
 
@@ -86,8 +86,8 @@ See `/privacy/` in-app for the current, plain-language policy.
 
 ```bash
 # Clone
-git clone <your-repo-url> mooo
-cd mooo
+git clone <your-repo-url> lactea
+cd lactea
 
 # Virtualenv
 python -m venv venv
@@ -118,14 +118,14 @@ Then open http://127.0.0.1:8000.
 ## 🗂 Project structure
 
 ```
-mooo/
+lactea/
 ├── core/                     # Main app
 │   ├── models.py             # PumpingSession, DailyLog, Supplement, SupplementLog
 │   ├── views.py              # All views
 │   ├── forms.py              # ModelForms
 │   ├── urls.py
 │   └── migrations/
-├── mooo_backend/             # Django project settings
+├── lactea_backend/             # Django project settings
 │   ├── settings.py
 │   └── urls.py
 ├── skins/                    # ← skin system (in progress)
@@ -133,7 +133,7 @@ mooo/
 │   │   ├── skin.json         #   manifest: palette, fonts, copy, assets, sounds
 │   │   ├── copy.py           #   per-skin word dictionary
 │   │   ├── images/           #   icons + start/stop art
-│   │   └── sounds/           #   e.g. mooo.mp3
+│   │   └── sounds/           #   e.g. lactea.mp3
 │   └── plain/                #   neutral / clinical skin
 ├── static/
 │   ├── css/                  # CSS variables consumed by skins

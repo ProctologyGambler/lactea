@@ -1,5 +1,5 @@
 """
-URL configuration for mooo_backend project.
+URL configuration for lactea_backend project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -20,6 +20,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Django's built-in auth: login, logout, password_change, password_reset flow.
+    # Signup lives in core.urls (Django doesn't ship one).
+    path('accounts/', include('django.contrib.auth.urls')),
     # Service worker must be served from site root so it can control the whole site.
     # Served as a Django template so the cache list can use {% url %} and {% static %}.
     path('sw.js', TemplateView.as_view(

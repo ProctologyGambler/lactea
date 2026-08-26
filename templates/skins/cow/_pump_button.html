@@ -1,0 +1,14 @@
+{% load static %}
+<button id="startBtn"
+        aria-label="Start pumping session"
+        class="flex flex-col items-center gap-2 px-8 py-5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-3xl shadow-lg transition">
+    <img src="{% static 'images/cow-start.svg' %}" alt="" class="w-24 h-24">
+    <span class="text-xl tracking-wide">START</span>
+</button>
+
+<button id="stopBtn"
+        aria-label="Stop pumping session"
+        class="flex flex-col items-center gap-2 px-8 py-5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-3xl shadow-lg transition hidden">
+    <img src="{% static 'images/cow-stop.svg' %}" alt="" class="w-24 h-24">
+    <span class="text-xl tracking-wide">STOP</span>
+</button>

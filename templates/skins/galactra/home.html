@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ c.brand_name }} — {{ c.home_protocol_header }}{% endblock %}
+
+{# Galactra home overlay — pharmaceutical-product overview page.
+   Replaces the shared templates/home.html for galactra requests via the
+   SkinOverlayLoader. Information architecture is genuinely different:
+   protocol day, ISI brief at top, dense data table, next-session status
+   badge, inline regimen, monospace records table. #}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+
+    {# Protocol header band — accent-coloured, uppercase tracked. #}
+    <header class="pharma-protocol-header mb-3">
+        <div class="flex items-baseline justify-between gap-4 flex-wrap">
+            <div>
+                <div class="pharma-protocol-header__eyebrow">{{ c.home_protocol_header }}</div>
+                <div class="pharma-protocol-header__indication">{{ c.home_protocol_indication }}</div>
+            </div>
+            <div class="pharma-protocol-header__day">
+                {% if protocol_day > 0 %}
+                    {{ c.home_protocol_day_prefix }}&nbsp;<span class="pharma-protocol-header__day-num">{{ protocol_day }}</span>
+                {% else %}
+                    {{ c.home_protocol_not_started }}
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {# ISI lives in the persistent footer only. The top-band ISI was a
+       pharma-ad convention; on a self-tracking tool the redundancy read
+       as noise. #}
+
+    {# Today — dense 4-column metric strip. Tabular numerals. #}
+    <section class="skin-card mb-6 p-0 overflow-hidden">
+        <h2 class="pharma-section-title px-4 pt-3">{{ c.home_today_section }}</h2>
+        <table class="pharma-metric-table mt-2">
+            <thead>
+                <tr>
+                    <th>{{ c.home_col_sessions }}</th>
+                    <th>{{ c.home_col_duration }}</th>
+                    <th>{{ c.home_col_yield }}</th>
+                    <th>{{ c.home_col_adherence }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="value">{{ today_sessions }}</td>
+                    <td class="value">{{ today_minutes }} <span class="unit">min</span></td>
+                    <td class="value">{{ today_ml }} <span class="unit">mL</span></td>
+                    <td class="value">
+                        {% if total_supps %}
+                            {{ today_supps_taken }}/{{ total_supps }}
+                            <span class="unit">({{ adherence_pct }}%)</span>
+                        {% else %}
+                            <span class="unit">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    {# Next session — status badge + cadence guidance + CTA. #}
+    <section class="skin-card p-5 mb-6">
+        <div class="flex items-center justify-between gap-3 mb-2">
+            <h2 class="pharma-section-title m-0">{{ c.home_next_section }}</h2>
+            <span class="pharma-status-badge pharma-status-{{ session_status }}">
+                {% if session_status == 'recent' %}{{ c.home_status_recent }}
+                {% elif session_status == 'due' %}{{ c.home_status_due }}
+                {% elif session_status == 'overdue' %}{{ c.home_status_overdue }}
+                {% else %}{{ c.home_status_not_started }}
+                {% endif %}
+            </span>
+        </div>
+
+        {% if time_since_last %}
+            <p class="pharma-meta">
+                <span class="pharma-meta__label">{{ c.home_last_session_prefix }}:</span>
+                <span class="pharma-meta__value">{{ time_since_last }} ago</span>
+            </p>
+            <p class="pharma-meta">
+                <span class="pharma-meta__label">{{ c.home_target_interval }}</span>
+            </p>
+        {% else %}
+            <p class="pharma-meta">{{ c.home_last_session_never }}</p>
+        {% endif %}
+
+        <a href="{% url 'pump_timer' %}" class="skin-btn-primary pharma-cta inline-block mt-3 px-5 py-2">
+            {{ c.home_cta_initiate }} ▸
+        </a>
+    </section>
+
+    {# Active regimen at a glance — inline list of meds with today's
+       administration status. No checkboxes here (those live on
+       /supplements/); this is a read-only summary row per agent. #}
+    <section class="skin-card p-5 mb-6">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="pharma-section-title m-0">{{ c.home_regimen_section }}</h2>
+            <a href="{% url 'supplements' %}" class="pharma-link">{{ c.home_regimen_link }} →</a>
+        </div>
+
+        {% if regimen_inline %}
+            <ul class="pharma-regimen">
+                {% for r in regimen_inline %}
+                    <li class="pharma-regimen__row">
+                        <span class="pharma-regimen__mark {% if r.taken_today %}is-administered{% endif %}"
+                              aria-label="{% if r.taken_today %}{{ c.home_regimen_administered }}{% else %}{{ c.home_regimen_pending }}{% endif %}">
+                            {% if r.taken_today %}✓{% else %}○{% endif %}
+                        </span>
+                        <span class="pharma-regimen__name">{{ r.name }}</span>
+                        <span class="pharma-regimen__dose">
+                            {{ r.dosage }}{% if r.frequency %} · {{ r.frequency }}{% endif %}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="pharma-meta">{{ c.home_regimen_empty }}</p>
+        {% endif %}
+    </section>
+
+    {# Recent records — tabular session log. Monospace numerics. #}
+    <section class="skin-card mb-6 p-0 overflow-hidden">
+        <h2 class="pharma-section-title px-4 pt-3">{{ c.home_records_section }}</h2>
+        {% if recent_sessions %}
+            <table class="pharma-records-table mt-2">
+                <thead>
+                    <tr>
+                        <th>{{ c.home_records_col_date }}</th>
+                        <th class="num">{{ c.home_records_col_duration }}</th>
+                        <th class="num">{{ c.home_records_col_left }}</th>
+                        <th class="num">{{ c.home_records_col_right }}</th>
+                        <th class="num">{{ c.home_records_col_total }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in recent_sessions %}
+                        <tr>
+                            <td>{{ s.date|date:"M j · H:i" }}</td>
+                            <td class="num">{{ s.duration_minutes }}</td>
+                            <td class="num">{{ s.left_ml }}</td>
+                            <td class="num">{{ s.right_ml }}</td>
+                            <td class="num value">{{ s.total_ml }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="pharma-meta px-4 pb-4">{{ c.home_records_empty }}</p>
+        {% endif %}
+    </section>
+
+    {# Daily observation log status — a single-line summary that links to
+       the daily log page. Pharma equivalent of "patient-reported
+       outcomes" check-in. #}
+    <section class="skin-card p-4">
+        <div class="flex items-center justify-between gap-3">
+            <div>
+                <div class="pharma-section-title m-0">{{ c.home_log_section }}</div>
+                <div class="pharma-meta mt-1">
+                    {% if today_log %}{{ c.home_log_status_complete }}{% else %}{{ c.home_log_status_pending }}{% endif %}
+                </div>
+            </div>
+            <a href="{% url 'daily_log' %}" class="pharma-link">
+                {% if today_log %}{{ c.home_log_link_complete }}{% else %}{{ c.home_log_link_pending }}{% endif %}
+            </a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

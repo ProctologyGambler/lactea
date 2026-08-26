@@ -1,0 +1,13 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Signed out — {{ c.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="skin-card p-6 space-y-4 text-center">
+    <h1 class="skin-heading text-2xl font-semibold">Signed out</h1>
+    <p class="skin-text-muted">You're signed out of {{ c.brand_name }}.</p>
+    <a href="{% url 'login' %}" class="skin-btn-primary inline-block px-6 py-3 rounded-2xl font-medium">
+        Sign back in
+    </a>
+</div>
+{% endblock %}

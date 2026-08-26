@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{% block title %}{{ c.brand_name }}{% endblock %}</title>
+
+    {% load static %}
+    <script src="{% static 'js/tailwind.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/skins.css' %}">
+
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="{{ skin_config.pwa.theme_color|default:'#ec4899' }}">
+    {% include "skins/"|add:request.skin|add:"/_brand_head.html" %}
+</head>
+<body data-skin="{{ request.skin }}" class="font-sans">
+
+    <nav class="app-nav shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                {% include "skins/"|add:request.skin|add:"/_brand_nav.html" %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-md mx-auto px-4 py-12">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="app-footer py-6 text-center text-sm">
+        <p>{{ c.footer_message }}</p>
+        <div class="mt-1 flex justify-center gap-4">
+            <a href="{% url 'privacy' %}">{{ c.footer_privacy }}</a>
+        </div>
+    </footer>
+
+</body>
+</html>

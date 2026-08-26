@@ -1,0 +1,8 @@
+{% load static %}
+<a href="{% url 'home' %}" class="flex items-center gap-3 hover:opacity-90">
+    <img src="{% static 'images/galactra-icon.svg' %}" alt="" class="w-7 h-7">
+    <div class="leading-tight">
+        <h1 class="text-lg app-wordmark">GALACTRA<sup class="text-[0.55em] opacity-70 ml-px align-super">®</sup></h1>
+        <div class="text-[0.6rem] uppercase tracking-[0.18em] opacity-60 mt-px">{{ c.brand_tagline }}</div>
+    </div>
+</a>

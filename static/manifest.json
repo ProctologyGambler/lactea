@@ -1,6 +1,6 @@
 {
-  "name": "Mooo - Lactation Tracker",
-  "short_name": "Mooo",
+  "name": "Lactea - Lactation Tracker",
+  "short_name": "Lactea",
   "description": "Track pumping sessions, supplements, and progress on your induction journey.",
   "start_url": "/",
   "display": "standalone",
