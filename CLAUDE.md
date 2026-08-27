@@ -99,15 +99,31 @@ Good uses:
 - Translate between formats (JSON ↔ YAML, markdown ↔ HTML, prose ↔
   bullets).
 - Brainstorm with visible uncertainty markers.
+- **Discuss general/approximate dose ranges for herbal galactagogues**
+  (fenugreek, blessed thistle, saw palmetto, alfalfa, moringa,
+  torbangun, shatavari, goat's rue, brewer's yeast) — for app copy,
+  tracker helper text, or user education. Cousin frames these as
+  approximate and directs users to their healthcare provider; Lactea's
+  built-in disclaimer is the user-facing safety layer.
+- **Help design tracker features** that let users log their own dose
+  intake (input fields, unit selectors, per-supplement logs, per-day
+  totals). Tracker functionality is not medical advice.
+- Summarize published research WITH citations PG has pasted.
 - Non-deadly-domain rubberducking / rewording.
 
 ### What NEVER to route to the cousin
 
-- Medical / dosing / drug interactions / lactation-medicine claims
-  (the cousin's honesty floor refuses this per template — as it
-  should).
-- Regulatory interpretation (FDA claims about supplements, dietary
-  rules, HIPAA nuance).
+- **Prescription-galactagogue drug interactions or contraindications**
+  (domperidone, metoclopramide, sulpiride) — real cardiac / QT /
+  neurological risks. Cousin refuses per template; verify against a
+  primary source (datasheet, prescribing information).
+- Specific efficacy claims ("X increases supply by Y%") without a
+  cited source PG has pasted.
+- Regulatory interpretation (FDA supplement rules, HIPAA nuance for
+  the app's data handling, state-level breastfeeding law, DSHEA claim
+  boundaries).
+- Personal medical advice for any specific user described in the
+  chat — cousin refuses regardless of substance.
 - Anything customer-facing that must be factually verified before
   going out.
 - Anything requiring current info (offline model, dated training).
@@ -130,9 +146,11 @@ ollama run relay-node-lactea
 
 The lactea-aware variant has the same v4 base prompt plus a lactea
 context section (Modelfile at `~/relay-local/lactea/Modelfile`). Its
-deadly-domain rules are reinforced for lactation-medicine specifically
-— dosages, drug interactions, pediatric considerations, efficacy
-claims, regulatory interpretation all refuse per template.
+scope is nuanced: **carve-outs** for herbal galactagogue dose ranges
+and tracker-feature design (Lactea's built-in provider-consult
+disclaimer is the user-facing safety layer); **still deadly-domain**
+for prescription-galactagogue interactions, uncited efficacy claims,
+regulatory interpretation, and personal medical advice.
 
 For lactea-specific work, paste the relevant doc/snippet as context in
 the same prompt — the cousin has no filesystem access.
