@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ c.brand_name }} — Purchase canceled{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto skin-card p-8 text-center">
+    <h1 class="text-2xl font-bold skin-heading mb-2">Checkout canceled</h1>
+    <p class="skin-text-muted mb-8">No charge was made. Nothing changed on your account.</p>
+
+    <div class="text-left mb-8 skin-text">
+        <p class="mb-3">
+            You can come back to this whenever. If something on the checkout page
+            wasn't clear or wasn't working, that's useful for us to know — reply to
+            the confirmation email or reach out from the footer.
+        </p>
+    </div>
+
+    <a href="{% url 'purchase' %}" class="skin-btn-primary inline-block py-3 px-6 rounded-2xl">
+        Back to the purchase page
+    </a>
+    <a href="{% url 'home' %}" class="skin-text-muted inline-block py-3 px-6 rounded-2xl ml-2">
+        Or return home
+    </a>
+</div>
+{% endblock %}

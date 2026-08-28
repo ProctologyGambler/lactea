@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}{{ c.brand_name }} — Purchase{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto skin-card p-8">
+    <h1 class="text-3xl font-bold skin-heading mb-2">Get full access</h1>
+    <p class="skin-text-muted mb-6">One-time purchase. Lifetime access on this device.</p>
+
+    {% if error %}
+        <div class="skin-card p-4 mb-6 border border-red-400">
+            <p class="skin-text">{{ error }}</p>
+        </div>
+    {% endif %}
+
+    <div class="mb-8">
+        <p class="skin-text mb-4">
+            {{ c.brand_name }} is a one-time purchase — no subscription, no auto-renew,
+            no recurring charges. You get:
+        </p>
+        <ul class="list-disc list-inside space-y-2 skin-text mb-6">
+            <li>Full pumping timer with per-breast ml logging</li>
+            <li>Supplement tracker with the research-sourced guide</li>
+            <li>Daily body and mood check-in</li>
+            <li>Progress charts over 7 / 30 / 90 days</li>
+            <li>CSV export of everything, anytime</li>
+            <li>Installable PWA — works offline after first visit</li>
+        </ul>
+    </div>
+
+    <form method="post" action="{% url 'purchase' %}">
+        {% csrf_token %}
+        <button type="submit"
+                class="w-full skin-btn-primary text-lg py-4 rounded-2xl"
+                {% if not stripe_configured %}disabled{% endif %}>
+            Continue to secure checkout →
+        </button>
+    </form>
+
+    <p class="skin-text-muted text-xs text-center mt-6">
+        Payment processed by Stripe. We never see your card details.
+        30-day refund policy — email us if this isn't for you.
+    </p>
+
+    {% if not stripe_configured %}
+        <p class="skin-text-muted text-xs text-center mt-2 italic">
+            (Checkout not yet configured on this server.)
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

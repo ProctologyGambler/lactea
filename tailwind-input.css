@@ -1,0 +1,10 @@
+/* Tailwind source. Compiled to static/css/tailwind.css via:
+ *   npx tailwindcss -i ./tailwind-input.css -o ./static/css/tailwind.css --minify
+ *
+ * Replaces the 400KB Play CDN browser-JIT build (per
+ * docs/design-pivot-2026-08-27.md). Rebuild when template or Python
+ * class strings change.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

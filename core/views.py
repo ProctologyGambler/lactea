@@ -1,13 +1,19 @@
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from datetime import timedelta
 import csv
+import stripe
 from .models import PumpingSession, DailyLog, Supplement, SupplementLog, SupplementSuggestion, UserProfile
 from .forms import PumpingSessionForm, SupplementForm, DailyLogForm, SignupForm
 from .middleware import SKIN_COOKIE, SKIN_CHOICES, is_valid_skin
@@ -457,3 +463,119 @@ def export_csv(request):
         ])
 
     return response
+
+
+# --- T2: Stripe purchase gate -----------------------------------------
+
+def _stripe_configured():
+    """True when both server-side keys are present. Publishable key is
+    fine to expose in HTML; the price ID is a Product ref, not a secret."""
+    return bool(settings.STRIPE_SECRET_KEY and settings.STRIPE_PRICE_ID)
+
+
+@login_required
+def purchase(request):
+    """Landing page for the paywall.
+
+    GET  → renders purchase.html with a "Buy" button (posts back here).
+    POST → creates a Stripe Checkout Session server-side and redirects
+           the user to Stripe's hosted page.
+    """
+    profile = getattr(request.user, 'profile', None)
+    if profile is not None and profile.has_paid:
+        return redirect('home')
+
+    if request.method == 'POST':
+        if not _stripe_configured():
+            return render(request, 'purchase.html', {
+                'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
+                'error': (
+                    'Payment is not configured on the server yet. '
+                    'Please try again later.'
+                ),
+            }, status=503)
+
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        session = stripe.checkout.Session.create(
+            mode='payment',
+            line_items=[{'price': settings.STRIPE_PRICE_ID, 'quantity': 1}],
+            success_url=(
+                request.build_absolute_uri(reverse('purchase_success'))
+                + '?session_id={CHECKOUT_SESSION_ID}'
+            ),
+            cancel_url=request.build_absolute_uri(reverse('purchase_cancel')),
+            client_reference_id=str(request.user.id),
+            customer_email=request.user.email or None,
+        )
+        return redirect(session.url, permanent=False)
+
+    return render(request, 'purchase.html', {
+        'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'stripe_configured': _stripe_configured(),
+    })
+
+
+@login_required
+def purchase_success(request):
+    """Post-purchase welcome / onboarding page.
+
+    Stripe redirects here after a successful checkout. Marking has_paid
+    happens in the webhook, NOT here — this page is untrusted. The
+    session_id query param is ignored beyond display.
+    """
+    return render(request, 'purchase_success.html', {})
+
+
+@login_required
+def purchase_cancel(request):
+    """Landing after a canceled Stripe Checkout."""
+    return render(request, 'purchase_cancel.html', {})
+
+
+@csrf_exempt
+@require_POST
+def stripe_webhook(request):
+    """Handle Stripe webhook events.
+
+    We care about `checkout.session.completed` — mark the referenced
+    user as paid, record the Stripe customer ID and paid_at timestamp.
+
+    Signature verification uses STRIPE_WEBHOOK_SECRET. Without it, we
+    fail closed (503) — a webhook we can't verify is not a webhook we
+    should trust.
+    """
+    if not settings.STRIPE_WEBHOOK_SECRET or not settings.STRIPE_SECRET_KEY:
+        return HttpResponse(status=503)
+
+    payload = request.body
+    sig_header = request.headers.get('Stripe-Signature', '')
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET,
+        )
+    except ValueError:
+        return HttpResponse(status=400)
+    except Exception:
+        # SignatureVerificationError — catch broadly since its import
+        # path shifted between stripe-python major versions.
+        return HttpResponse(status=400)
+
+    if event.get('type') == 'checkout.session.completed':
+        session = event['data']['object']
+        user_id = session.get('client_reference_id')
+        customer_id = session.get('customer', '') or ''
+        if user_id:
+            try:
+                user = User.objects.get(id=int(user_id))
+            except (User.DoesNotExist, ValueError, TypeError):
+                return HttpResponse(status=200)
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+            profile.has_paid = True
+            profile.paid_at = timezone.now()
+            if customer_id:
+                profile.stripe_customer_id = customer_id
+            profile.save()
+
+    return HttpResponse(status=200)

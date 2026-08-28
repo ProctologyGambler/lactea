@@ -21,6 +21,9 @@ into the next request on the same thread.
 """
 
 from django.conf import settings
+from django.shortcuts import redirect
+from django.urls import resolve
+from django.urls.exceptions import Resolver404
 
 from skins.loader import get_available_skins
 from skins.runtime import set_current_skin, clear_current_skin
@@ -68,3 +71,67 @@ class SkinMiddleware:
             return self.get_response(request)
         finally:
             clear_current_skin()
+
+
+# --- T2: Paywall for the Galactra skin ---------------------------------
+
+# URL names exempt from the paywall (users MUST be able to reach these
+# even when unpaid). Auth flow, the paywall's own routes, skin switching,
+# and the webhook (Stripe posts to it from outside).
+_PAYWALL_EXEMPT_URL_NAMES = frozenset({
+    'purchase', 'purchase_success', 'purchase_cancel', 'stripe_webhook',
+    'login', 'logout', 'signup',
+    'password_reset', 'password_reset_done',
+    'password_reset_confirm', 'password_reset_complete',
+    'set_skin',
+})
+
+# Path prefixes exempt from the paywall (admin, static, media, favicon).
+_PAYWALL_EXEMPT_PATH_PREFIXES = ('/admin/', '/static/', '/media/', '/favicon.ico')
+
+
+class PaywallMiddleware:
+    """
+    Redirect authenticated users on the paywalled skin to /purchase/ if
+    they haven't paid.
+
+    Runs AFTER SkinMiddleware (needs request.skin) and AFTER
+    AuthenticationMiddleware (needs request.user).
+
+    Passes through when:
+      - No PAYWALL_SKIN configured
+      - Current request's skin is not the paywalled one
+      - User is unauthenticated (auth flow handles them first)
+      - URL name / path is on the exempt lists
+      - Profile.has_paid is True
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        paywall_skin = getattr(settings, 'PAYWALL_SKIN', None)
+        if not paywall_skin or getattr(request, 'skin', None) != paywall_skin:
+            return self.get_response(request)
+
+        if not getattr(request.user, 'is_authenticated', False):
+            return self.get_response(request)
+
+        path = request.path
+        for prefix in _PAYWALL_EXEMPT_PATH_PREFIXES:
+            if path.startswith(prefix):
+                return self.get_response(request)
+
+        try:
+            match = resolve(path)
+            if match.url_name in _PAYWALL_EXEMPT_URL_NAMES:
+                return self.get_response(request)
+        except Resolver404:
+            # Unrecognized path — let Django's 404 handler deal with it.
+            return self.get_response(request)
+
+        profile = getattr(request.user, 'profile', None)
+        if profile is not None and profile.has_paid:
+            return self.get_response(request)
+
+        return redirect('purchase')

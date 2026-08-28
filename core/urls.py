@@ -14,4 +14,10 @@ urlpatterns = [
     path('export/', views.export_csv, name='export_csv'),
     path('theme/<str:skin>/', views.set_skin, name='set_skin'),
     path('signup/', views.signup, name='signup'),
+
+    # T2: Stripe purchase gate (Galactra skin only, enforced in middleware).
+    path('purchase/', views.purchase, name='purchase'),
+    path('purchase/success/', views.purchase_success, name='purchase_success'),
+    path('purchase/cancel/', views.purchase_cancel, name='purchase_cancel'),
+    path('stripe/webhook/', views.stripe_webhook, name='stripe_webhook'),
 ]

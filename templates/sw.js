@@ -13,7 +13,7 @@
 //   When you change anything in the cached list below, bump CACHE_NAME so the
 //   old cache is cleared on activate. Otherwise users see stale assets.
 
-const CACHE_NAME = 'lactea-v6';
+const CACHE_NAME = 'lactea-v7';
 
 const APP_SHELL = [
     '{% url "home" %}',
@@ -24,7 +24,7 @@ const APP_SHELL = [
     '{% url "progress" %}',
     '{% url "privacy" %}',
     '{% static "css/skins.css" %}',
-    '{% static "js/tailwind.js" %}',
+    '{% static "css/tailwind.css" %}',
     '{% static "js/chart.min.js" %}',
     '{% static "js/timer.js" %}',
     '{% static "js/charts.js" %}',

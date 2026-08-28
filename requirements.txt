@@ -2,3 +2,4 @@ Django>=5.1
 django-htmx
 gunicorn        # for production deployment
 whitenoise      # for serving static files in production
+stripe          # T2 purchase gate

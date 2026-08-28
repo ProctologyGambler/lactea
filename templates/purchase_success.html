@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}{{ c.brand_name }} — Welcome{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto skin-card p-8 text-center">
+    <div class="text-5xl mb-4">🌱</div>
+    <h1 class="text-3xl font-bold skin-heading mb-2">Welcome to {{ c.brand_name }}</h1>
+    <p class="skin-text-muted mb-8">Your purchase is complete. Access is unlocked.</p>
+
+    <div class="text-left mb-8">
+        <h2 class="text-lg font-semibold skin-heading mb-3">Where to start</h2>
+        <ul class="list-disc list-inside space-y-2 skin-text">
+            <li>
+                <a href="{% url 'pump_timer' %}" class="underline">
+                    Start your first pumping session
+                </a>
+                — the timer logs duration and per-breast ml.
+            </li>
+            <li>
+                <a href="{% url 'supplements' %}" class="underline">
+                    Set up your supplement list
+                </a>
+                — add whatever you're taking.
+            </li>
+            <li>
+                <a href="{% url 'daily_log' %}" class="underline">
+                    Record today's body + mood check-in
+                </a>
+                — 30 seconds; picks up context for the charts.
+            </li>
+            <li>
+                <a href="{% url 'progress' %}" class="underline">
+                    See your progress
+                </a>
+                — chart populates after your first few sessions.
+            </li>
+        </ul>
+    </div>
+
+    <a href="{% url 'home' %}" class="skin-btn-primary inline-block py-3 px-6 rounded-2xl">
+        Go to my dashboard →
+    </a>
+
+    <p class="skin-text-muted text-xs mt-6">
+        Bookmark this app or install it as a PWA from your browser menu for
+        offline access. A receipt has been sent by Stripe to your account
+        email.
+    </p>
+</div>
+{% endblock %}

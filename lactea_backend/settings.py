@@ -72,6 +72,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
     'core.middleware.SkinMiddleware',
+    # PaywallMiddleware runs AFTER SkinMiddleware (needs request.skin) and
+    # AFTER AuthenticationMiddleware (needs request.user). Gates the
+    # PAYWALL_SKIN behind an authenticated + has_paid check.
+    'core.middleware.PaywallMiddleware',
 ]
 
 ROOT_URLCONF = 'lactea_backend.urls'
@@ -191,3 +195,18 @@ EMAIL_BACKEND = os.environ.get(
     'django.core.mail.backends.console.EmailBackend',
 )
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'support@galactra.app')
+
+
+# --- Stripe (T2 purchase gate) ---
+# Test keys pinned to the Stripe test sandbox; live keys never touch this
+# repo (populate from a prod-only secret store when we ship). See
+# tranche_notes.md → T2 for the account walkthrough.
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_PRICE_ID = os.environ.get('STRIPE_PRICE_ID', '')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
+
+# Which skin (by internal name) requires purchase to access.
+# Unified Lactea product per docs/design-pivot-2026-08-27.md — internal
+# identifier stays `via_lactea`, user-facing brand is "Lactea".
+PAYWALL_SKIN = 'via_lactea'

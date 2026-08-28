@@ -1,6 +1,9 @@
 # skins/via_lactea/copy.py
 # ──────────────────────────────────────────────────────────────────────
-# Via Lactea — "the Milky Way." A quiet night sky for a slow practice.
+# Lactea — "the Milky Way." A quiet night sky for a slow practice.
+# (Internal skin identifier remains `via_lactea` to avoid a data
+# migration on the source_skin field; user-facing brand is "Lactea"
+# per docs/design-pivot-2026-08-27.md.)
 # Voice: spare, intentional, mythopoetic without being precious.
 # Celestial vocabulary (sky, night, light, dust, drift, course) used
 # sparingly. Override _base only where the new voice lands.
@@ -8,7 +11,7 @@
 
 COPY = {
     # ── Brand ──────────────────────────────────────────────────────
-    "brand.name":                  "Via Lactea",
+    "brand.name":                  "Lactea",
     "brand.tagline":               "A quiet sky for a slow practice.",
     "brand.emoji":                 "✦",
 

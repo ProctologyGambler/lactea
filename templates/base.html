@@ -6,7 +6,9 @@
     <title>{% block title %}{{ c.brand_name }}{% endblock %}</title>
 
     {% load static %}
-    <script src="{% static 'js/tailwind.js' %}"></script>
+    {# Tailwind compiled from ./tailwind-input.css via `npx tailwindcss -i ... -o ...`; #}
+    {# replaces the 400KB Play CDN build per docs/design-pivot-2026-08-27.md. #}
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <link rel="stylesheet" href="{% static 'css/skins.css' %}">
 
     <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -67,19 +69,14 @@
             {% endif %}
         </div>
         <div class="mt-2 flex justify-center items-center gap-2">
-            {% if not request.skin_locked %}
-                <span>{{ c.footer_theme_label }}</span>
-                {% for skin in available_skins %}
-                    {% if request.skin == skin.name %}
-                        <span class="app-theme-toggle-active">{{ skin.display_name }}</span>
-                    {% else %}
-                        <a href="{% url 'set_skin' skin.name %}?next={{ request.path }}">{{ skin.display_name }}</a>
-                    {% endif %}
-                    {% if not forloop.last %}<span>·</span>{% endif %}
-                {% endfor %}
-            {% endif %}
+            {% comment %}
+            Skin picker removed per docs/design-pivot-2026-08-27.md — unified
+            Lactea product; users see one skin (via_lactea). cow/galactra
+            still live in the tree per pivot's "keep code" clause; restore
+            this block if returning to multi-skin exposure.
+            {% endcomment %}
             <button type="button" id="sound-toggle" onclick="toggleSkinMute()"
-                    class="skin-mute-btn{% if not request.skin_locked %} ml-3{% endif %}" aria-pressed="false" aria-label="Sound on — tap to mute">🔇</button>
+                    class="skin-mute-btn" aria-pressed="false" aria-label="Sound on — tap to mute">🔇</button>
         </div>
     </footer>
 

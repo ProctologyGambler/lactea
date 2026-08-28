@@ -137,7 +137,7 @@ lactea/
 │   └── plain/                #   neutral / clinical skin
 ├── static/
 │   ├── css/                  # CSS variables consumed by skins
-│   ├── js/                   # timer.js, charts.js, vendored tailwind.js + chart.min.js
+│   ├── js/                   # timer.js, charts.js, compiled tailwind.css + chart.min.js
 │   └── manifest.json         # PWA manifest
 ├── templates/
 │   ├── base.html             # Layout with nav + footer
